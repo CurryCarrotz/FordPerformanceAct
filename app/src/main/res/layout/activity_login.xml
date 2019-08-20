@@ -5,21 +5,24 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_login"
+    android:gravity="center"
     tools:context=".LoginActivity">
 
     <ImageView
+        android:id="@+id/ford_act_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/ford_act_logo"
+        android:layout_marginBottom="20dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="90dp"
+        android:contentDescription="Ford Performance Club of ACT"
         />
 
     <RelativeLayout
         android:id="@+id/form_wrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true">
+        android:layout_below="@+id/ford_act_logo">
 
         <LinearLayout
             android:layout_width="match_parent"

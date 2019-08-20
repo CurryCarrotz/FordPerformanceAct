@@ -5,27 +5,28 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/background_login"
+    android:gravity="center"
     tools:context=".LoginActivity">
 
     <ImageView
+        android:id="@+id/ford_act_logo"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/ford_act_logo"
-        android:layout_centerHorizontal="true"
-        android:layout_above="@+id/form_wrapper"/>
+        android:layout_centerHorizontal="true" />
 
     <RelativeLayout
         android:id="@+id/form_wrapper"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_centerVertical="true">
+        android:layout_below="@+id/ford_act_logo"
+        android:paddingBottom="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:gravity="center">
-
 
             <RelativeLayout
                 android:id="@+id/username_login_wrapper"
@@ -39,16 +40,18 @@
                     android:id="@+id/username_login"
                     android:layout_width="match_parent"
                     android:layout_height="75dp"
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="0dp"
+                    android:background="@drawable/edit_text_view"
+                    android:hint="Username"
+                    android:inputType="text"
                     android:paddingStart="85dp"
                     android:paddingLeft="85dp"
                     android:paddingEnd="0dp"
                     android:paddingRight="0dp"
-                    android:inputType="text"
-                    android:textSize="20sp"
                     android:textColor="#fff"
-                    android:hint="Username"
                     android:textColorHint="#c0c0c0"
-                    android:background="@drawable/edit_text_view"/>
+                    android:textSize="20sp" />
 
                 <ImageView
                     android:id="@+id/username_icon"
