@@ -143,14 +143,14 @@
                     android:textColor="#5DC0E1"/>
 
                 <Button
-                    android:id="@+id/button_login"
+                    android:id="@+id/button_signin"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginRight="70dp"
                     android:layout_marginLeft="70dp"
                     android:layout_marginTop="30dp"
                     android:layout_below="@+id/forgot_password_text"
-                    android:text="Login"
+                    android:text="SIGN IN"
                     android:textColor="#fff"
                     android:background="@drawable/btn_login"/>
             </RelativeLayout>

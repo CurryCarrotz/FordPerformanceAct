@@ -142,7 +142,7 @@
                     android:textColor="#5DC0E1"/>
 
                 <Button
-                    android:id="@+id/button_login"
+                    android:id="@+id/button_signin"
                     android:layout_width="match_parent"
                     android:layout_height="55dp"
                     android:layout_marginRight="70dp"

@@ -1,13 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
 <menu xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:showIn="navigation_view">
 
-    <group>
+    <group android:id="@+id/menu_main">
         <item
-            android:id="@+id/item1"
-            android:title="Item"/>
+            android:id="@+id/nav_home"
+            android:title="Home"
+            android:icon="@drawable/nav_home"
+            />
+
+        <item
+            android:id="@+id/nav_calendar"
+            android:title="Calendar"
+            android:icon="@drawable/nav_calendar"
+            />
+
+        <item
+            android:id="@+id/nav_members_cars"
+            android:title="Members Cars"
+            android:icon="@drawable/nav_members_cars"/>
+
+        <item
+            android:id="@+id/nav_membership"
+            android:title="Membership"
+            android:icon="@drawable/nav_membership"/>
+
+        <item
+            android:id="@+id/nav_crs"
+            android:title="CRS"
+            android:icon="@drawable/nav_crs"/>
+
+        <item
+            android:id="@+id/nav_forums"
+            android:title="Forums"
+            android:icon="@drawable/nav_forums"/>
+
+        <item
+            android:id="@+id/nav_gallery"
+            android:title="Gallery"
+            android:icon="@drawable/nav_gallery"/>
+
+        <item
+            android:id="@+id/nav_sponsors"
+            android:title="Sponsors"
+            android:icon="@drawable/nav_sponsors"/>
     </group>
+
+    <group android:id="@+id/menu_admin">
+        <item android:title="Admin">
+            <menu>
+                <item
+                    android:id="@+id/manage_members"
+                    android:title="Manage Members"
+                    android:icon="@drawable/nav_manage_members"/>
+
+                <item
+                    android:id="@+id/post_announcement"
+                    android:title="Post an announcement"
+                    android:icon="@drawable/nav_announcement"/>
+            </menu>
+        </item>
+    </group>
+
+
 
 
 </menu>
