@@ -4,7 +4,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     tools:showIn="navigation_view">
 
-    <group android:id="@+id/menu_main">
+    <group>
         <item
             android:id="@+id/nav_home"
             android:title="Home"
@@ -28,11 +28,6 @@
             android:icon="@drawable/nav_membership"/>
 
         <item
-            android:id="@+id/nav_crs"
-            android:title="CRS"
-            android:icon="@drawable/nav_crs"/>
-
-        <item
             android:id="@+id/nav_forums"
             android:title="Forums"
             android:icon="@drawable/nav_forums"/>
@@ -46,10 +41,15 @@
             android:id="@+id/nav_sponsors"
             android:title="Sponsors"
             android:icon="@drawable/nav_sponsors"/>
-    </group>
 
-    <group android:id="@+id/menu_admin">
-        <item android:title="Admin">
+        <item
+            android:id="@+id/nav_shop_merchandise"
+            android:title="Shop Merchandise"
+            android:icon="@drawable/nav_shop_merchandise"/>
+
+
+        <item android:id="@+id/menu_admin"
+            android:title="Admin">
             <menu>
                 <item
                     android:id="@+id/manage_members"
@@ -60,9 +60,20 @@
                     android:id="@+id/post_announcement"
                     android:title="Post an announcement"
                     android:icon="@drawable/nav_announcement"/>
+
+                <item
+                    android:id="@+id/admin_log"
+                    android:title="Admin Log"
+                    android:icon="@drawable/nav_admin_log"/>
             </menu>
         </item>
+
+        <item
+            android:id="@+id/social_media"
+            app:actionLayout="@layout/navigation_view_footer"
+            app:showAsAction="always"/>
     </group>
+
 
 
 

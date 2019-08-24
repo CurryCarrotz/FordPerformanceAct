@@ -10,6 +10,7 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.Toast;
 
@@ -34,11 +35,32 @@ public class HomeActivity extends AppCompatActivity {
                 R.string.open_navigation, R.string.close_navigation);
 
         drawerLayout.addDrawerListener(toggle);
+
         toggle.syncState();
 
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeAsUpIndicator(R.drawable.hamburger_icon);
+        if (getSupportActionBar() != null) {
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+            getSupportActionBar().setHomeAsUpIndicator(R.drawable.hamburger_icon);
+        }
 
+        navigationView.setItemIconTintList(null);
+        navigationView.getMenu().findItem(R.id.social_media).getActionView().findViewById(R.id.nav_instagram)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Toast.makeText(HomeActivity.this, "This will direct you to instagram", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        navigationView.getMenu().findItem(R.id.social_media).getActionView().findViewById(R.id.nav_facebook)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Toast.makeText(HomeActivity.this, "This will direct you to facebook", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -48,7 +70,7 @@ public class HomeActivity extends AppCompatActivity {
 
                 switch (itemId) {
                     case R.id.nav_home:
-                        Toast.makeText(HomeActivity.this, "Item 1 selected", Toast.LENGTH_SHORT).show();
+                        Toast.makeText(HomeActivity.this, "home selected", Toast.LENGTH_SHORT).show();
                 }
 
                 return true;

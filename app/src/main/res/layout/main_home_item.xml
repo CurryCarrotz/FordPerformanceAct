@@ -3,7 +3,6 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:background="@drawable/background_home"
     android:padding="8dp"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
@@ -38,7 +37,8 @@
                     android:layout_height="0dp"
                     android:src="@drawable/image_events_calendar"
                     android:contentDescription="Events Calendar"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1">
+                </ImageView>
 
                 <TextView
                     android:layout_width="wrap_content"
