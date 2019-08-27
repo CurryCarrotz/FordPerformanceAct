@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:apps="http://schemas.android.com/apk/res-auto"
+    tools:context=".Fragments.EventCalendarFragment">
+
+    <CalendarView
+        android:id="@+id/calendar_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" />
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/calendar_view"
+        android:layout_above="@+id/create_new_event"
+        android:visibility="gone"/>
+
+    <TextView
+        android:id="@+id/no_event_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/calendar_view"
+        android:layout_above="@+id/create_new_event"
+        android:text="Events will be shown here when they are available."
+        android:textSize="20sp"
+        android:textColor="#fff"
+        android:gravity="center"/>
+    
+    <Button
+        android:id="@+id/create_new_event"
+        android:layout_width="match_parent"
+        android:layout_height="100dp"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="8dp"
+        android:text="Create a New Event"
+        android:textColor="#fff"
+        android:textSize="19sp"
+        android:background="@drawable/btn_new_events" />
+
+</RelativeLayout>

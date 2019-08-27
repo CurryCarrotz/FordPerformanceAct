@@ -40,40 +40,32 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginBottom="20dp">
 
-                <TextView
-                    android:id="@+id/label_username"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Username"
-                    android:textColor="#fff"
-                    android:textSize="17sp" />
-
                 <EditText
                     android:id="@+id/username_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="20dp"
-                    android:paddingLeft="20dp"
+                    android:paddingStart="45dp"
+                    android:paddingLeft="25dp"
                     android:paddingRight="0dp"
                     android:paddingEnd="0dp"
                     android:inputType="text"
                     android:textSize="20sp"
                     android:textColor="#fff"
                     android:textColorHint="#c0c0c0"
-                    android:layout_below="@+id/label_username"
+                    android:hint="Username"
                     android:singleLine="true"
-                    app:backgroundTint="#fff"/>
+                    android:background="#990E2D3F"
+                    android:padding="12dp" />
 
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:background="@drawable/icon_username"
                     android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@id/label_username"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp" />
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp" />
             </RelativeLayout>
 
             <RelativeLayout
@@ -84,40 +76,33 @@
                 android:layout_marginLeft="30dp"
                 android:layout_marginBottom="30dp">
 
-                <TextView
-                    android:id="@+id/label_password"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Password"
-                    android:textColor="#fff"
-                    android:textSize="17sp"/>
 
                 <EditText
                     android:id="@+id/password_login"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:paddingStart="20dp"
-                    android:paddingLeft="20dp"
-                    android:paddingEnd="0dp"
+                    android:paddingStart="45dp"
+                    android:paddingLeft="25dp"
                     android:paddingRight="0dp"
+                    android:paddingEnd="0dp"
                     android:inputType="textPassword"
                     android:textSize="20sp"
                     android:textColor="#fff"
                     android:textColorHint="#c0c0c0"
-                    android:layout_below="@id/label_password"
+                    android:hint="Password"
                     android:singleLine="true"
-                    app:backgroundTint="#fff"/>
+                    android:background="#990E2D3F"
+                    android:padding="12dp" />
 
                 <ImageView
                     android:layout_width="35dp"
                     android:layout_height="35dp"
                     android:background="@drawable/icon_password"
                     android:layout_centerVertical="true"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignParentRight="true"
-                    android:layout_below="@id/label_password"
-                    android:layout_marginEnd="8dp"
-                    android:layout_marginRight="8dp"/>
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginLeft="8dp"/>
 
             </RelativeLayout>
 
@@ -143,7 +128,7 @@
                     android:layout_toEndOf="@+id/forgot_password_text"
                     android:layout_toRightOf="@+id/forgot_password_text"
                     android:text="Click here."
-                    android:textColor="#7D7BE0"/>
+                    android:textColor="#110DEF"/>
 
                 <Button
                     android:id="@+id/button_signin"

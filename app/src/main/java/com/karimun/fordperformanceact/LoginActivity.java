@@ -1,21 +1,15 @@
 package com.karimun.fordperformanceact;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.text.Layout;
-import android.util.DisplayMetrics;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -37,7 +31,7 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(View view) {
 
-                Intent intent = new Intent(getApplicationContext(), HomeActivity.class);
+                Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                 startActivity(intent);
                 finish();
@@ -66,7 +60,7 @@ public class LoginActivity extends AppCompatActivity {
 
         // declare email label and set attritubes to it
         TextView emailLabel = new TextView(LoginActivity.this);
-        emailLabel.setId(R.id.label_username);
+        emailLabel.setId(R.id.username_login);
         emailLabel.setText("Email:");
         emailLabel.setTextSize(20);
         emailLabel.setTextColor(Color.BLACK);
@@ -81,11 +75,11 @@ public class LoginActivity extends AppCompatActivity {
         paramsForEmailField.leftMargin = 100;
         paramsForEmailField.rightMargin = 100;
         paramsForEmailField.height = 90;
-        paramsForEmailField.addRule(RelativeLayout.BELOW, R.id.label_username);
+        paramsForEmailField.addRule(RelativeLayout.BELOW, R.id.username_login);
 
         // declare email field and set attributes to it
         EditText emailField = new EditText(LoginActivity.this);
-        emailField.setId(R.id.label_password);
+        emailField.setId(R.id.password_login);
         emailField.setSingleLine(true);
         emailField.setBackgroundResource(R.drawable.field_popup_email);
         emailField.setTextSize(16);
@@ -98,7 +92,7 @@ public class LoginActivity extends AppCompatActivity {
                 new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         paramsForButtonSubmit.addRule(RelativeLayout.ALIGN_PARENT_RIGHT);
-        paramsForButtonSubmit.addRule(RelativeLayout.BELOW, R.id.label_password);
+        paramsForButtonSubmit.addRule(RelativeLayout.BELOW, R.id.password_login);
         paramsForButtonSubmit.rightMargin = 100;
         paramsForButtonSubmit.topMargin = 40;
         paramsForButtonSubmit.bottomMargin = 40;
@@ -116,7 +110,7 @@ public class LoginActivity extends AppCompatActivity {
                 new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT);
 
         paramsForButtonCancel.addRule(RelativeLayout.ALIGN_PARENT_LEFT);
-        paramsForButtonCancel.addRule(RelativeLayout.BELOW, R.id.label_password);
+        paramsForButtonCancel.addRule(RelativeLayout.BELOW, R.id.password_login);
         paramsForButtonCancel.leftMargin = 100;
         paramsForButtonCancel.topMargin = 40;
         paramsForButtonCancel.bottomMargin = 40;
