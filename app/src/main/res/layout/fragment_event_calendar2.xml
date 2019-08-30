@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/image_background2"
+    tools:context=".Fragments.EventCalendarFragment2">
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/line"
+        android:layout_alignParentTop="true" />
+
+    <RelativeLayout
+        android:id="@+id/calendar2_header"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:padding="13dp"
+        android:layout_below="@+id/line">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Upcoming Events"
+            android:textSize="25sp"
+            android:textColor="@color/colorGeneralText"
+            android:layout_centerInParent="true" />
+
+        <ImageView
+            android:id="@+id/add_event"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_add"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"/>
+    </RelativeLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recycle_view"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/calendar2_header"
+        android:visibility="gone"
+        />
+
+    <TextView
+        android:id="@+id/no_event_text"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/calendar2_header"
+        android:text="Events will be shown here when they are available."
+        android:textSize="20sp"
+        android:textColor="@color/colorGeneralText"
+        android:gravity="center"
+        android:visibility="visible"/>
+</RelativeLayout>

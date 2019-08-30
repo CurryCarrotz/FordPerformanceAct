@@ -3,8 +3,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:apps="http://schemas.android.com/apk/res-auto"
+    android:background="@drawable/image_background2"
     tools:context=".Fragments.EventCalendarFragment">
+
+    <View
+        android:id="@+id/line"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="@drawable/line"
+        android:layout_alignParentTop="true" />
+
 
     <CalendarView
         android:id="@+id/calendar_view"
@@ -15,30 +23,30 @@
         android:id="@+id/recycle_view"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@id/calendar_view"
         android:layout_above="@+id/create_new_event"
+        android:layout_below="@id/calendar_view"
         android:visibility="gone"/>
 
     <TextView
         android:id="@+id/no_event_text"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/calendar_view"
-        android:layout_above="@+id/create_new_event"
         android:text="Events will be shown here when they are available."
         android:textSize="20sp"
-        android:textColor="#fff"
-        android:gravity="center"/>
-    
+        android:textColor="@color/colorGeneralText"
+        android:layout_above="@+id/create_new_event"
+        android:layout_below="@id/calendar_view"
+        android:gravity="center" />
+
+
     <Button
         android:id="@+id/create_new_event"
         android:layout_width="match_parent"
         android:layout_height="100dp"
-        android:layout_alignParentBottom="true"
         android:layout_margin="8dp"
+        android:layout_alignParentBottom="true"
         android:text="Create a New Event"
-        android:textColor="#fff"
+        android:textColor="@color/colorGeneralText"
         android:textSize="19sp"
         android:background="@drawable/btn_new_events" />
-
 </RelativeLayout>

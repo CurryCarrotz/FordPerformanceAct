@@ -1,24 +1,21 @@
 package com.karimun.fordperformanceact.Fragments;
 
-import android.content.DialogInterface;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AlertDialog;
-import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
-import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.karimun.fordperformanceact.R;
 
-public class EventCalendarFragment extends Fragment {
+public class EventCalendarFragment2 extends Fragment {
 
     AlertDialog createEventWindow;
 
@@ -26,21 +23,21 @@ public class EventCalendarFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_event_calendar, container, false);
+        return inflater.inflate(R.layout.fragment_event_calendar2, container, false);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
-        Button btnCreateNewEvent = view.findViewById(R.id.create_new_event);
-        btnCreateNewEvent.setOnClickListener(new View.OnClickListener() {
+        ImageView addEvent = view.findViewById(R.id.add_event);
+
+        addEvent.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                 builder.setView(R.layout.create_event_window);
-
 
                 createEventWindow = builder.create();
                 createEventWindow.show();
@@ -82,6 +79,6 @@ public class EventCalendarFragment extends Fragment {
         super.onPause();
 
         if (createEventWindow != null)
-            createEventWindow.dismiss();
+        createEventWindow.dismiss();
     }
 }

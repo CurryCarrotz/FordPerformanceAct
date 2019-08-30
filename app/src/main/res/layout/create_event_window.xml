@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="#CC0E2D3F"
+    android:padding="25dp">
+
+    <TextView
+        android:id="@+id/main_title_create_event"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Create an Event"
+        android:textColor="@color/colorGeneralText"
+        android:textSize="23sp"/>
+
+
+    <TextView
+        android:id="@+id/title_label"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:textSize="18sp"
+        android:textColor="@color/colorGeneralText"
+        android:layout_below="@+id/main_title_create_event"
+        android:layout_marginStart="8dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="16dp" />
+
+    <EditText
+        android:id="@+id/title_field"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_label"
+        android:background="@drawable/field_popup2"
+        android:layout_margin="8dp"
+        android:paddingStart="8dp"
+        android:paddingLeft="8dp"
+        android:textColor="@color/colorGeneralText"
+        android:hint="Enter title"
+        android:textColorHint="#c9c9c9"/>
+
+    <CheckBox
+        android:id="@+id/all_day_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title_field"
+        android:textColor="@color/colorGeneralText"
+        android:textSize="18sp"
+        app:buttonTint="@color/colorWhite" />
+
+    <LinearLayout
+        android:id="@+id/time_start_wrapper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/all_day_checkbox"
+        android:orientation="horizontal"
+        android:gravity="center"
+        android:paddingRight="25dp"
+        android:paddingEnd="25dp">
+
+        <ImageView
+            android:id="@+id/icon_time_start"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_time"
+            android:layout_margin="8dp"/>
+
+        <EditText
+            android:id="@+id/time_start_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_popup2"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
+            android:layout_marginBottom="8dp"
+            android:paddingStart="8dp"
+            android:paddingLeft="8dp"
+            android:textColor="@color/colorGeneralText"
+            android:hint="Enter start time"
+            android:textColorHint="#c9c9c9"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/time_end_wrapper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/time_start_wrapper"
+        android:orientation="horizontal"
+        android:paddingRight="25dp"
+        android:paddingEnd="25dp">
+
+        <ImageView
+            android:id="@+id/icon_time_end"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_time"
+            android:layout_margin="8dp"/>
+
+        <EditText
+            android:id="@+id/time_end_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_popup2"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
+            android:paddingStart="8dp"
+            android:paddingLeft="8dp"
+            android:textColor="@color/colorGeneralText"
+            android:hint="Enter end time"
+            android:textColorHint="#c9c9c9"/>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/location_wrapper"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/time_end_wrapper"
+        android:orientation="horizontal"
+        android:paddingRight="25dp"
+        android:paddingEnd="25dp">
+
+        <ImageView
+            android:id="@+id/icon_location"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:src="@drawable/icon_location"
+            android:layout_margin="8dp"/>
+
+        <EditText
+            android:id="@+id/location_field"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/field_popup2"
+            android:layout_marginBottom="8dp"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"
+            android:paddingStart="8dp"
+            android:paddingLeft="8dp"
+            android:textColor="@color/colorGeneralText"
+            android:hint="Enter location"
+            android:textColorHint="#c9c9c9"/>
+
+    </LinearLayout>
+
+
+
+    <CheckBox
+        android:id="@+id/send_notification_checkbox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/location_wrapper"
+        android:textSize="18sp"
+        app:buttonTint="@color/colorWhite"/>
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/send_notification_checkbox"
+        android:layout_centerHorizontal="true"
+        android:text="Create Event"
+        android:background="@drawable/btn_popup_window"
+        android:layout_margin="8dp"/>
+
+
+</RelativeLayout>

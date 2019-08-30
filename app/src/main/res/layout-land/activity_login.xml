@@ -47,7 +47,7 @@
                     android:paddingEnd="0dp"
                     android:inputType="text"
                     android:textSize="20sp"
-                    android:textColor="#fff"
+                    android:textColor="@color/colorGeneralText"
                     android:textColorHint="#c0c0c0"
                     android:hint="Username"
                     android:singleLine="true"
@@ -86,7 +86,7 @@
                     android:paddingEnd="0dp"
                     android:inputType="textPassword"
                     android:textSize="20sp"
-                    android:textColor="#fff"
+                    android:textColor="@color/colorGeneralText"
                     android:textColorHint="#c0c0c0"
                     android:hint="Password"
                     android:singleLine="true"
@@ -116,7 +116,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Forgot your password? "
-                    android:textColor="#fff"/>
+                    android:textColor="@color/colorGeneralText"/>
 
                 <TextView
                     android:id="@+id/go_to_forgot_password"
@@ -134,7 +134,7 @@
                     android:layout_marginTop="10dp"
                     android:layout_below="@+id/forgot_password_text"
                     android:text="SIGN IN"
-                    android:textColor="#fff"
+                    android:textColor="@color/colorGeneralText"
                     android:background="@drawable/btn_signin"/>
             </RelativeLayout>
         </LinearLayout>
