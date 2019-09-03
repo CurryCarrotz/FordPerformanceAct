@@ -17,7 +17,11 @@
     <CalendarView
         android:id="@+id/calendar_view"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:theme="@style/MyCalendarView"
+        android:weekDayTextAppearance="@style/MyCalendarView.WeekDayTextFormat"
+        android:firstDayOfWeek="2" />
+
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/recycle_view"
@@ -34,8 +38,8 @@
         android:text="Events will be shown here when they are available."
         android:textSize="20sp"
         android:textColor="@color/colorGeneralText"
-        android:layout_above="@+id/create_new_event"
         android:layout_below="@id/calendar_view"
+        android:layout_above="@+id/create_new_event"
         android:gravity="center" />
 
 
@@ -44,9 +48,11 @@
         android:layout_width="match_parent"
         android:layout_height="100dp"
         android:layout_margin="8dp"
-        android:layout_alignParentBottom="true"
         android:text="Create a New Event"
         android:textColor="@color/colorGeneralText"
         android:textSize="19sp"
-        android:background="@drawable/btn_new_events" />
+        android:background="@drawable/btn_new_events"
+        android:layout_alignParentBottom="true"
+        />
+
 </RelativeLayout>

@@ -38,12 +38,16 @@ public class HomeFragment extends Fragment {
         itemEventsCalendar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                FragmentTransaction transactionCalendar = getFragmentManager().beginTransaction();
-                transactionCalendar.replace(R.id.fragment_container, new EventCalendarFragment());
-                transactionCalendar.commit();
 
-                MainActivity.mainAppTitle.setText("Events Calendar");
-                MainActivity.viewWrapper.setVisibility(View.VISIBLE);
+                if (getFragmentManager() != null) {
+
+                    FragmentTransaction transactionCalendar = getFragmentManager().beginTransaction();
+                    transactionCalendar.replace(R.id.fragment_container, new EventCalendarFragment());
+                    transactionCalendar.commit();
+
+                    MainActivity.mainAppTitle.setText("Events Calendar");
+                    MainActivity.viewWrapper.setVisibility(View.VISIBLE);
+                }
             }
         });
 

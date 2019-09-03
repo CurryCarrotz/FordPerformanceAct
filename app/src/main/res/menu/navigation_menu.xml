@@ -52,24 +52,24 @@
             android:title="Admin">
             <menu>
                 <item
-                    android:id="@+id/manage_members"
+                    android:id="@+id/nav_manage_members"
                     android:title="Manage Members"
                     android:icon="@drawable/nav_manage_members"/>
 
                 <item
-                    android:id="@+id/post_announcement"
+                    android:id="@+id/nav_post_announcement"
                     android:title="Post an announcement"
                     android:icon="@drawable/nav_announcement"/>
 
                 <item
-                    android:id="@+id/admin_log"
+                    android:id="@+id/nav_admin_log"
                     android:title="Admin Log"
                     android:icon="@drawable/nav_admin_log"/>
             </menu>
         </item>
 
         <item
-            android:id="@+id/social_media"
+            android:id="@+id/nav_social_media"
             app:actionLayout="@layout/navigation_view_footer"
             app:showAsAction="always"/>
     </group>

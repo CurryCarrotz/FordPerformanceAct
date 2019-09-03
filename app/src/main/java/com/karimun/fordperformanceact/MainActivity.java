@@ -20,6 +20,7 @@ import android.widget.Toast;
 import com.karimun.fordperformanceact.Fragments.EventCalendarFragment;
 import com.karimun.fordperformanceact.Fragments.EventCalendarFragment2;
 import com.karimun.fordperformanceact.Fragments.HomeFragment;
+import com.karimun.fordperformanceact.Fragments.ManageMembersFragment;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -84,23 +85,6 @@ public class MainActivity extends AppCompatActivity {
         }
 
         navigationView.setItemIconTintList(null);
-        navigationView.getMenu().findItem(R.id.social_media).getActionView().findViewById(R.id.nav_instagram)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        Toast.makeText(MainActivity.this, "This will direct you to instagram", Toast.LENGTH_SHORT).show();
-                    }
-                });
-
-        navigationView.getMenu().findItem(R.id.social_media).getActionView().findViewById(R.id.nav_facebook)
-                .setOnClickListener(new View.OnClickListener() {
-                    @Override
-                    public void onClick(View v) {
-
-                        Toast.makeText(MainActivity.this, "This will direct you to facebook", Toast.LENGTH_SHORT).show();
-                    }
-                });
 
         navigationView.setNavigationItemSelectedListener(new NavigationView.OnNavigationItemSelectedListener() {
             @Override
@@ -124,10 +108,57 @@ public class MainActivity extends AppCompatActivity {
                         mainAppTitle.setText("Events Calendar");
                         viewWrapper.setVisibility(View.VISIBLE);
                         return true;
+
+                    case R.id.nav_members_cars:
+                        return true;
+
+                    case R.id.nav_membership:
+                        return true;
+
+                    case R.id.nav_forums:
+                        return true;
+
+                    case R.id.nav_gallery:
+                        return true;
+
+                    case R.id.nav_sponsors:
+                        return true;
+
+                    case R.id.nav_shop_merchandise:
+                        return true;
+
+                    case R.id.nav_manage_members:
+                        FragmentTransaction fragmentTransactionForManageMembers = getSupportFragmentManager().beginTransaction();
+                        fragmentTransactionForManageMembers.replace(R.id.fragment_container, new ManageMembersFragment()).commit();
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        mainAppTitle.setText("Manage Members");
+                        viewWrapper.setVisibility(View.INVISIBLE);
+                        return true;
+
+                    case R.id.nav_admin_log:
+                        return true;
                 }
                 return true;
             }
         });
+
+        navigationView.getMenu().findItem(R.id.nav_social_media).getActionView().findViewById(R.id.nav_instagram)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Toast.makeText(MainActivity.this, "This will direct you to instagram", Toast.LENGTH_SHORT).show();
+                    }
+                });
+
+        navigationView.getMenu().findItem(R.id.nav_social_media).getActionView().findViewById(R.id.nav_facebook)
+                .setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+
+                        Toast.makeText(MainActivity.this, "This will direct you to facebook", Toast.LENGTH_SHORT).show();
+                    }
+                });
 
         btnSignout.setOnClickListener(new View.OnClickListener() {
             @Override

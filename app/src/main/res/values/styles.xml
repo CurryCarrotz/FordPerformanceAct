@@ -8,12 +8,35 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <!-- Theme for NavigationView -->
     <style name="MyNavigationView">
         <item name="android:listDivider">@color/colorNavigationListDivider</item>
         <item name="android:textColorSecondary">@color/colorWhite</item>
     </style>
 
+    <!-- Theme for AlertDialog -->
     <style name="MyAlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:textColorPrimary">@color/colorWhite</item>
     </style>
+
+    <!-- Theme for CalendarView -->
+    <style name="MyCalendarView" parent="Theme.AppCompat">
+        <item name="colorAccent">@color/colorWhite</item>
+    </style>
+
+    <style name="MyCalendarView.WeekDayTextFormat" parent="android:Widget.CalendarView">
+        <item name="android:textSize">20sp</item>
+        <item name="android:textColor">@color/colorGeneralText</item>
+    </style>
+
+    <!-- Theme for DatePickerDialog -->
+    <style name="MyDatePickerDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorDarkerBackground</item>
+    </style>
+
+    <!-- Theme for TimePickerDialog -->
+    <style name="MyTimePickerDialog" parent="Theme.AppCompat.Light.Dialog">
+        <item name="colorAccent">@color/colorDarkerBackground</item>
+    </style>
+
 </resources>
