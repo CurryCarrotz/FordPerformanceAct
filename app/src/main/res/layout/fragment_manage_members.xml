@@ -18,7 +18,8 @@
         android:layout_marginLeft="30dp"
         android:layout_marginRight="30dp"
         android:layout_marginTop="8dp"
-        android:hint="Search members"/>
+        android:hint="Search members"
+        android:singleLine="true"/>
 
     <Button
         android:layout_width="70dp"
@@ -26,7 +27,7 @@
         android:background="@drawable/btn_manage_members_search"
         android:layout_alignRight="@+id/search_members"
         android:layout_alignEnd="@+id/search_members"
-        android:paddingBottom="35dp"
+        android:paddingBottom="36dp"
         android:layout_marginTop="8dp"/>
 
     <LinearLayout

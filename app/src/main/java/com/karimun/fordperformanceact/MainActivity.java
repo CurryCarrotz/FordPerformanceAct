@@ -52,14 +52,11 @@ public class MainActivity extends AppCompatActivity {
                 if (!switchedToEventsCalendar2) {
                     FragmentTransaction fragmentTransactionCalendar2 = getSupportFragmentManager().beginTransaction();
                     fragmentTransactionCalendar2.replace(R.id.fragment_container, new EventCalendarFragment2()).commit();
-
                     switchedToEventsCalendar2 = true;
                 }
                 else {
-
                     FragmentTransaction fragmentTransactionCalendarOriginal = getSupportFragmentManager().beginTransaction();
                     fragmentTransactionCalendarOriginal.replace(R.id.fragment_container, new EventCalendarFragment()).commit();
-
                     switchedToEventsCalendar2 = false;
                 }
             }
@@ -74,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
 
         toggle = new ActionBarDrawerToggle(this, drawerLayout,
                 R.string.open_navigation, R.string.close_navigation);
+
 
         drawerLayout.addDrawerListener(toggle);
 
@@ -99,7 +97,7 @@ public class MainActivity extends AppCompatActivity {
                         drawerLayout.closeDrawer(GravityCompat.START);
                         mainAppTitle.setText("Home");
                         viewWrapper.setVisibility(View.INVISIBLE);
-                        return true;
+                        break;
 
                     case R.id.nav_calendar:
                         FragmentTransaction fragmentTransactionCalendar = getSupportFragmentManager().beginTransaction();
@@ -107,25 +105,25 @@ public class MainActivity extends AppCompatActivity {
                         drawerLayout.closeDrawer(GravityCompat.START);
                         mainAppTitle.setText("Events Calendar");
                         viewWrapper.setVisibility(View.VISIBLE);
-                        return true;
+                        break;
 
                     case R.id.nav_members_cars:
-                        return true;
+                        break;
 
                     case R.id.nav_membership:
-                        return true;
+                        break;
 
                     case R.id.nav_forums:
-                        return true;
+                        break;
 
                     case R.id.nav_gallery:
-                        return true;
+                        break;
 
                     case R.id.nav_sponsors:
-                        return true;
+                        break;
 
                     case R.id.nav_shop_merchandise:
-                        return true;
+                        break;
 
                     case R.id.nav_manage_members:
                         FragmentTransaction fragmentTransactionForManageMembers = getSupportFragmentManager().beginTransaction();
@@ -133,10 +131,10 @@ public class MainActivity extends AppCompatActivity {
                         drawerLayout.closeDrawer(GravityCompat.START);
                         mainAppTitle.setText("Manage Members");
                         viewWrapper.setVisibility(View.INVISIBLE);
-                        return true;
+                        break;
 
                     case R.id.nav_admin_log:
-                        return true;
+                        break;
                 }
                 return true;
             }

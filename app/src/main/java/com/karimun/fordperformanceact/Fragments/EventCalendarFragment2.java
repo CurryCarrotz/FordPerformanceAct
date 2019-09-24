@@ -30,6 +30,10 @@ public class EventCalendarFragment2 extends Fragment {
     public static EditText timeEndField;
     public static boolean isTimeStartField = false;
 
+    Calendar calendarStart;
+
+    EditText dateStartField;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -58,7 +62,7 @@ public class EventCalendarFragment2 extends Fragment {
                     final CheckBox allDayCheckBox = createEventWindow.findViewById(R.id.all_day_checkbox);
                     CheckBox sendNotificationCheckBox = createEventWindow.findViewById(R.id.send_notification_checkbox);
                     final LinearLayout timeEndWrapper = createEventWindow.findViewById(R.id.time_end_wrapper);
-                    final EditText dateStartField = createEventWindow.findViewById(R.id.date_start_field);
+                    dateStartField = createEventWindow.findViewById(R.id.date_start_field);
                     timeStartField = createEventWindow.findViewById(R.id.time_start_field);
                     final EditText dateEndField = createEventWindow.findViewById(R.id.date_end_field);
                     timeEndField = createEventWindow.findViewById(R.id.time_end_field);
@@ -91,7 +95,7 @@ public class EventCalendarFragment2 extends Fragment {
                             @Override
                             public void onClick(View v) {
 
-                                pickDate(dateStartField);
+                                pickStartDate(dateStartField);
                             }
                         });
                     }
@@ -119,7 +123,7 @@ public class EventCalendarFragment2 extends Fragment {
                             @Override
                             public void onClick(View v) {
 
-                                pickDate(dateEndField);
+                                pickEndDate(dateEndField);
                             }
                         });
                     }
@@ -144,31 +148,72 @@ public class EventCalendarFragment2 extends Fragment {
         });
     }
 
-    private void pickDate(final EditText startDateInput) {
+    private void pickStartDate(final EditText startDateInput) {
 
-        final Calendar c = Calendar.getInstance();
+        calendarStart = Calendar.getInstance();
 
         final DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
             @Override
             public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
 
-                c.set(Calendar.YEAR, year);
-                c.set(Calendar.MONTH, month);
-                c.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+                calendarStart.set(Calendar.YEAR, year);
+                calendarStart.set(Calendar.MONTH, month);
+                calendarStart.set(Calendar.DAY_OF_MONTH, dayOfMonth);
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
-                startDateInput.setText(dateFormat.format(c.getTime()));
+                startDateInput.setText(dateFormat.format(calendarStart.getTime()));
             }
         };
 
 
         if (getContext() != null) {
 
-            int year = c.get(Calendar.YEAR);
-            int month = c.get(Calendar.MONTH);
-            int dayOfMonth = c.get(Calendar.DAY_OF_MONTH);
+            int year = calendarStart.get(Calendar.YEAR);
+            int month = calendarStart.get(Calendar.MONTH);
+            int dayOfMonth = calendarStart.get(Calendar.DAY_OF_MONTH);
 
-            new DatePickerDialog(getContext(), R.style.MyDatePickerDialog, onDateSetListener, year, month, dayOfMonth).show();
+            DatePickerDialog dateStartDialog =
+                    new DatePickerDialog(getContext(), R.style.MyDatePickerDialog, onDateSetListener, year, month, dayOfMonth);
+
+            dateStartDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+            dateStartDialog.show();
+        }
+    }
+
+    private void pickEndDate(final EditText endDateInput) {
+
+        final Calendar calendarEnd = Calendar.getInstance();
+
+        DatePickerDialog.OnDateSetListener onDateSetListener = new DatePickerDialog.OnDateSetListener() {
+            @Override
+            public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
+
+                calendarEnd.set(Calendar.YEAR, year);
+                calendarEnd.set(Calendar.MONTH, month);
+                calendarEnd.set(Calendar.DAY_OF_MONTH, dayOfMonth);
+
+                SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
+                endDateInput.setText(dateFormat.format(calendarEnd.getTime()));
+            }
+        };
+
+        if (getContext() != null) {
+
+            int year = calendarEnd.get(Calendar.YEAR);
+            int month = calendarEnd.get(Calendar.MONTH);
+            int dayOfMonth = calendarEnd.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog dateEndDialog =
+                    new DatePickerDialog(getContext(), R.style.MyDatePickerDialog, onDateSetListener, year, month, dayOfMonth);
+
+            if (dateStartField.getText().length() > 0 && dateStartField.getText() != null) {
+                dateEndDialog.getDatePicker().setMinDate(calendarStart.getTimeInMillis());
+            }
+            else {
+                dateEndDialog.getDatePicker().setMinDate(System.currentTimeMillis());
+            }
+
+            dateEndDialog.show();
         }
     }
 
