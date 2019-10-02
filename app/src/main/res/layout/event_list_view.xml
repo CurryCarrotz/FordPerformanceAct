@@ -1,0 +1,98 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/event_list_container"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="@drawable/image_event_list_background"
+    android:padding="8dp"
+    android:layout_margin="8dp">
+
+    <RelativeLayout
+        android:id="@+id/date_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/date_stamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ddd, dd MMM yyyy"
+            android:textColor="@color/colorGeneralText"
+            android:textStyle="bold"
+            android:textSize="25sp"
+            android:layout_centerVertical="true"/>
+
+        <TextView
+            android:id="@+id/day_counter"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0 days"
+            android:textColor="@color/colorGeneralText"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            />
+    </RelativeLayout>
+    <TextView
+        android:id="@+id/event_title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Title"
+        android:textSize="30sp"
+        android:textColor="@color/colorGeneralText"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/icon_time"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"/>
+
+        <TextView
+            android:id="@+id/time_stamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="0:00 - 0:00"
+            android:textColor="@color/colorGeneralText"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:gravity="center">
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@drawable/icon_location"
+            android:layout_marginRight="8dp"
+            android:layout_marginEnd="8dp"/>
+
+        <TextView
+            android:id="@+id/location_stamp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="location"
+            android:textColor="@color/colorGeneralText"/>
+
+    </LinearLayout>
+
+    <View
+        android:id="@+id/event_list_bottom_border"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:background="#d9d9d9"
+        android:layout_marginTop="20dp"
+        android:visibility="gone"
+        />
+
+</LinearLayout>

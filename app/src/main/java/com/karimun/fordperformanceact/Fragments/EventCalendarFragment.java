@@ -5,8 +5,13 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,13 +22,30 @@ import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
+import com.karimun.fordperformanceact.Adapters.EventAdapter;
 import com.karimun.fordperformanceact.Adapters.TimePickerAdapter;
+import com.karimun.fordperformanceact.MainActivity;
+import com.karimun.fordperformanceact.Models.OurEvent;
 import com.karimun.fordperformanceact.R;
 
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+
+import sun.bob.mcalendarview.MCalendarView;
 
 
 public class EventCalendarFragment extends Fragment {
@@ -42,6 +64,10 @@ public class EventCalendarFragment extends Fragment {
     int monthEnd;
     int dayOfMonthEnd;
 
+    String dayOfWeekStart;
+
+    List<OurEvent> events;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -53,10 +79,59 @@ public class EventCalendarFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        MainActivity.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
+        MainActivity.toggle.setDrawerIndicatorEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon_hamburger);
+
+        events = new ArrayList<>();
+
+        final TextView noEventText = view.findViewById(R.id.no_event_text);
+
+        final RecyclerView recyclerView = view.findViewById(R.id.recycle_view);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+
+        // Fetch event data from database and add it to event list
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Event");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                events.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    OurEvent ourEvent = snapshot.getValue(OurEvent.class);
+                    events.add(ourEvent);
+
+                    // Declare the event adapter object
+                    EventAdapter eventAdapter = new EventAdapter(getContext(), events, false);
+
+                    // Set event adapter to recyclerview
+                    recyclerView.setAdapter(eventAdapter);
+
+                    // If there is one or more events, recyclerView is visible. If not, there will be text indicating there is no event
+                    if (events.size() > 0) {
+                        noEventText.setVisibility(View.GONE);
+                        recyclerView.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        noEventText.setVisibility(View.VISIBLE);
+                        recyclerView.setVisibility(View.GONE);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+
+
         CalendarView calendarView = view.findViewById(R.id.calendar_view);
-        RecyclerView recyclerView = view.findViewById(R.id.recycle_view);
-
-
+        
+        // When this button is clicked, there will be a pop up dialog asking for event details
         Button btnCreateNewEvent = view.findViewById(R.id.create_new_event);
         btnCreateNewEvent.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -64,6 +139,7 @@ public class EventCalendarFragment extends Fragment {
 
                 if (getContext() != null) {
 
+                    // Create dialog builder, that is to say, we are creating the content of the pop up dialog/window.
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     builder.setView(R.layout.create_event_window);
 
@@ -72,19 +148,22 @@ public class EventCalendarFragment extends Fragment {
                     createEventWindow.show();
 
                     final CheckBox allDayCheckBox = createEventWindow.findViewById(R.id.all_day_checkbox);
-                    CheckBox sendNotificationCheckBox = createEventWindow.findViewById(R.id.send_notification_checkbox);
+                    final CheckBox sendNotificationCheckBox = createEventWindow.findViewById(R.id.send_notification_checkbox);
                     final LinearLayout timeEndWrapper = createEventWindow.findViewById(R.id.time_end_wrapper);
+                    final EditText eventTitleField = createEventWindow.findViewById(R.id.title_field);
                     dateStartField = createEventWindow.findViewById(R.id.date_start_field);
                     timeStartField = createEventWindow.findViewById(R.id.time_start_field);
                     dateEndField = createEventWindow.findViewById(R.id.date_end_field);
                     timeEndField = createEventWindow.findViewById(R.id.time_end_field);
-
+                    final EditText eventLocationField = createEventWindow.findViewById(R.id.location_field);
+                    Button btnCreateEvent = createEventWindow.findViewById(R.id.btn_create_event);
 
 
                     if (allDayCheckBox != null) {
 
                         allDayCheckBox.setTextColor(getResources().getColor(R.color.colorGeneralText));
 
+                        // When the allDayCheckBox is ticked, we make other fields invisible and remove their inputs/contents.
                         allDayCheckBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
                             @Override
                             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
@@ -107,6 +186,7 @@ public class EventCalendarFragment extends Fragment {
 
                     if (dateStartField != null) {
 
+                        // When this date start field is clicked, we open a pop up(sub)dialog for user to pick date
                         dateStartField.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -118,6 +198,7 @@ public class EventCalendarFragment extends Fragment {
 
                     if (timeStartField != null) {
 
+                        // When this time start field is clicked, we open a pop up (sub)dialog for user to pick time
                         timeStartField.setOnClickListener(new View.OnClickListener() {
                             @Override
                             public void onClick(View v) {
@@ -160,11 +241,119 @@ public class EventCalendarFragment extends Fragment {
                         });
                     }
 
+                    // When the create event button within the window dialog is pressed, then we push new data (e.g. title, startDate etc) to database
+                    if (btnCreateEvent != null) {
+                        btnCreateEvent.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Event").push();
+
+                                HashMap<String, Object> hashMap = new HashMap<>();
+
+                                if (eventTitleField != null
+                                        && dateStartField != null && timeStartField != null
+                                        && dateEndField != null && timeEndField != null
+                                        && eventLocationField != null
+                                        && sendNotificationCheckBox != null) {
+
+                                    if (!TextUtils.isEmpty(eventTitleField.getText()) && !TextUtils.isEmpty(dateStartField.getText())
+                                            && !TextUtils.isEmpty(eventLocationField.getText())) {
+
+                                        if (allDayCheckBox != null && allDayCheckBox.isChecked()) {
+
+                                            hashMap.put("eventId", reference.getKey());
+                                            hashMap.put("title", eventTitleField.getText().toString());
+                                            hashMap.put("dateStart", changeDateFormat(dateStartField.getText().toString()));
+                                            hashMap.put("timeStart", timeStartField.getText().toString());
+                                            hashMap.put("dateEnd", changeDateFormat(dateEndField.getText().toString()));
+                                            hashMap.put("timeEnd", timeEndField.getText().toString());
+                                            hashMap.put("location", eventLocationField.getText().toString());
+                                            hashMap.put("dayOfWeekStart", dayOfWeekStart);
+
+                                            if (sendNotificationCheckBox.isChecked()) {
+                                                hashMap.put("sendNotification", true);
+                                            } else {
+                                                hashMap.put("sendNotification", false);
+                                            }
+
+                                            reference.updateChildren(hashMap);
+
+                                            Toast.makeText(getContext(), "Event has been successfully created.", Toast.LENGTH_SHORT).show();
+                                            createEventWindow.dismiss();
+                                        }
+                                        else if (dateStartField.getText().toString().equals(dateEndField.getText().toString())) {
+
+                                            if (convertStringToDateForTime(timeStartField.getText().toString())
+                                                    .compareTo(convertStringToDateForTime(timeEndField.getText().toString())) <= 0) {
+
+                                                hashMap.put("eventId", reference.getKey());
+                                                hashMap.put("title", eventTitleField.getText().toString());
+                                                hashMap.put("dateStart", changeDateFormat(dateStartField.getText().toString()));
+                                                hashMap.put("timeStart", timeStartField.getText().toString());
+                                                hashMap.put("dateEnd", changeDateFormat(dateEndField.getText().toString()));
+                                                hashMap.put("timeEnd", timeEndField.getText().toString());
+                                                hashMap.put("location", eventLocationField.getText().toString());
+                                                hashMap.put("dayOfWeekStart", dayOfWeekStart);
+
+                                                if (sendNotificationCheckBox.isChecked()) {
+                                                    hashMap.put("sendNotification", true);
+                                                } else {
+                                                    hashMap.put("sendNotification", false);
+                                                }
+
+                                                reference.updateChildren(hashMap);
+
+                                                Toast.makeText(getContext(), "Event has been successfully created.", Toast.LENGTH_SHORT).show();
+                                                createEventWindow.dismiss();
+                                            }
+                                            else {
+                                                Toast.makeText(getContext(), "Must pick time after start time", Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+                                        else if (convertStringToDateForDate(dateStartField.getText().toString())
+                                                    .compareTo(convertStringToDateForDate(dateEndField.getText().toString())) < 0) {
+
+                                            hashMap.put("eventId", reference.getKey());
+                                            hashMap.put("title", eventTitleField.getText().toString());
+                                            hashMap.put("dateStart", changeDateFormat(dateStartField.getText().toString()));
+                                            hashMap.put("timeStart", timeStartField.getText().toString());
+                                            hashMap.put("dateEnd", changeDateFormat(dateEndField.getText().toString()));
+                                            hashMap.put("timeEnd", timeEndField.getText().toString());
+                                            hashMap.put("location", eventLocationField.getText().toString());
+                                            hashMap.put("dayOfWeekStart", dayOfWeekStart);
+
+                                            if (sendNotificationCheckBox.isChecked()) {
+                                                hashMap.put("sendNotification", true);
+                                            } else {
+                                                hashMap.put("sendNotification", false);
+                                            }
+
+                                            reference.updateChildren(hashMap);
+
+                                            Toast.makeText(getContext(), "Event has been successfully created.", Toast.LENGTH_SHORT).show();
+                                            createEventWindow.dismiss();
+                                        }
+                                        else {
+                                            Toast.makeText(getContext(), "Start date must not occur after end date.", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                    else {
+
+                                        Toast.makeText(getContext(), "Title, Start date, and Location must not be empty.", Toast.LENGTH_LONG).show();
+                                    }
+                                }
+
+                            }
+                        });
+                    }
                 }
             }
         });
+
+
     }
 
+    // Method for picking start date
     private void pickStartDate(final EditText dateInput) {
 
         calendarStart = Calendar.getInstance();
@@ -179,6 +368,10 @@ public class EventCalendarFragment extends Fragment {
 
                 SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
                 dateInput.setText(dateFormat.format(calendarStart.getTime()));
+
+                SimpleDateFormat dateFormat2 = new SimpleDateFormat("EEE", Locale.getDefault());
+                Date date = new Date(year, month, dayOfMonth - 1);
+                dayOfWeekStart = dateFormat2.format(date);
             }
         };
 
@@ -189,20 +382,16 @@ public class EventCalendarFragment extends Fragment {
             int month = calendarStart.get(Calendar.MONTH);
             int dayOfMonth = calendarStart.get(Calendar.DAY_OF_MONTH);
 
-
             DatePickerDialog dateStartDialog
                     = new DatePickerDialog(getContext(), R.style.MyDatePickerDialog, onDateSetListener, year, month, dayOfMonth);
 
             dateStartDialog.getDatePicker().setMinDate(System.currentTimeMillis());
 
-            if (dateStartField.getText().length() > 0 && dateStartField.getText() != null) {
-
-
-            }
             dateStartDialog.show();
         }
     }
 
+    // Method for picking end date
     private void pickEndDate(final EditText dateInput) {
 
         calendarEnd = Calendar.getInstance();
@@ -240,6 +429,43 @@ public class EventCalendarFragment extends Fragment {
         }
     }
 
+    // Method for changing date format
+    private String changeDateFormat(String formerDateFormat) {
+        try {
+            SimpleDateFormat former = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
+            Date parsedFormerDate = former.parse(formerDateFormat);
+            SimpleDateFormat current = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+            return current.format(parsedFormerDate);
+        }
+        catch (ParseException e) {
+            Log.d("PARSE EXCEPTION", e.getMessage());
+        }
+        return "";
+    }
+
+    // Method for converting string object to date for date fields
+    private Date convertStringToDateForDate(String str) {
+        try {
+            SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
+            return dateFormat.parse(str);
+        }
+        catch (ParseException e) {
+            Log.d("PARSE EXCEPTION", e.getMessage());
+        }
+        return null;
+    }
+
+    // Method for converting string object to date for time fields
+    private Date convertStringToDateForTime(String str) {
+        try {
+            SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+            return timeFormat.parse(str);
+        }
+        catch (ParseException e) {
+            Log.d("PARSE EXCEPTION", e.getMessage());
+        }
+        return null;
+    }
 
     @Override
     public void onPause() {

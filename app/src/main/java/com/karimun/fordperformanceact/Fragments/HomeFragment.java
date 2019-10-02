@@ -5,6 +5,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.CardView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +30,10 @@ public class HomeFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
+        MainActivity.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_LOCKED_CLOSED);
+        MainActivity.toggle.setDrawerIndicatorEnabled(false);
+        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
+
         itemEventsCalendar = view.findViewById(R.id.item_events_calendar);
         itemCommitee = view.findViewById(R.id.item_commitee);
         itemMembership = view.findViewById(R.id.item_membership);
@@ -41,15 +47,22 @@ public class HomeFragment extends Fragment {
 
                 if (getFragmentManager() != null) {
 
-                    FragmentTransaction transactionCalendar = getFragmentManager().beginTransaction();
-                    transactionCalendar.replace(R.id.fragment_container, new EventCalendarFragment());
-                    transactionCalendar.commit();
+                    changeFragment(new EventCalendarFragment());
 
                     MainActivity.mainAppTitle.setText("Events Calendar");
                     MainActivity.viewWrapper.setVisibility(View.VISIBLE);
+
+                    MainActivity.switchedToEventsCalendar2 = false;
                 }
             }
         });
 
+    }
+
+    private void changeFragment(Fragment newFragment) {
+        if (getFragmentManager() != null) {
+            FragmentTransaction fragmentTransaction = getFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, newFragment).commit();
+        }
     }
 }

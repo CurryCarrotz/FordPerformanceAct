@@ -1,5 +1,6 @@
 package com.karimun.fordperformanceact;
 
+import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
 import android.support.annotation.NonNull;
@@ -17,10 +18,18 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.karimun.fordperformanceact.Fragments.EventCalendarFragment;
 import com.karimun.fordperformanceact.Fragments.EventCalendarFragment2;
 import com.karimun.fordperformanceact.Fragments.HomeFragment;
 import com.karimun.fordperformanceact.Fragments.ManageMembersFragment;
+import com.karimun.fordperformanceact.Models.Member;
 
 
 public class MainActivity extends AppCompatActivity {
@@ -28,11 +37,14 @@ public class MainActivity extends AppCompatActivity {
     public static TextView mainAppTitle;
     public static LinearLayout viewWrapper;
 
-    DrawerLayout drawerLayout;
+    public static DrawerLayout drawerLayout;
     NavigationView navigationView;
-    ActionBarDrawerToggle toggle;
+    public static ActionBarDrawerToggle toggle;
 
-    boolean switchedToEventsCalendar2 = false;
+    public static boolean switchedToEventsCalendar2 = false;
+
+    FirebaseUser user;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -43,20 +55,21 @@ public class MainActivity extends AppCompatActivity {
         mainAppTitle = findViewById(R.id.main_app_title);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
+        final TextView username = navigationView.getHeaderView(0).findViewById(R.id.username);
+        final TextView email = navigationView.getHeaderView(0).findViewById(R.id.email_address);
         Button btnSignout = navigationView.getHeaderView(0).findViewById(R.id.button_signout);
         viewWrapper = findViewById(R.id.view_wrapper);
+
         viewWrapper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (!switchedToEventsCalendar2) {
-                    FragmentTransaction fragmentTransactionCalendar2 = getSupportFragmentManager().beginTransaction();
-                    fragmentTransactionCalendar2.replace(R.id.fragment_container, new EventCalendarFragment2()).commit();
+                    changeFragment(new EventCalendarFragment2());
                     switchedToEventsCalendar2 = true;
                 }
                 else {
-                    FragmentTransaction fragmentTransactionCalendarOriginal = getSupportFragmentManager().beginTransaction();
-                    fragmentTransactionCalendarOriginal.replace(R.id.fragment_container, new EventCalendarFragment()).commit();
+                    changeFragment(new EventCalendarFragment());
                     switchedToEventsCalendar2 = false;
                 }
             }
@@ -64,9 +77,8 @@ public class MainActivity extends AppCompatActivity {
 
         setSupportActionBar(toolbar);
 
-        FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
-        fragmentTransaction.add(R.id.fragment_container, new HomeFragment());
-        fragmentTransaction.commit();
+        // Set default fragment
+        changeFragment(new HomeFragment());
 
 
         toggle = new ActionBarDrawerToggle(this, drawerLayout,
@@ -77,10 +89,30 @@ public class MainActivity extends AppCompatActivity {
 
         toggle.syncState();
 
-        if (getSupportActionBar() != null) {
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-            getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon_hamburger);
-        }
+
+        // Set user's username and email within side navigation bar
+        user = FirebaseAuth.getInstance().getCurrentUser();
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Member").child(user.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Member member = dataSnapshot.getValue(Member.class);
+
+                if (member != null) {
+                    username.setText(member.getUsername());
+                    email.setText(member.getEmail());
+
+                    if (member.isAdmin()) {
+                        navigationView.getMenu().getItem(8).setVisible(true);
+                    }
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
 
         navigationView.setItemIconTintList(null);
 
@@ -92,19 +124,21 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (itemId) {
                     case R.id.nav_home:
-                        FragmentTransaction fragmentTransactionHome = getSupportFragmentManager().beginTransaction();
-                        fragmentTransactionHome.replace(R.id.fragment_container, new HomeFragment()).commit();
+                        changeFragment(new HomeFragment());
                         drawerLayout.closeDrawer(GravityCompat.START);
-                        mainAppTitle.setText("Home");
+                        mainAppTitle.setText("      Home");
                         viewWrapper.setVisibility(View.INVISIBLE);
+
                         break;
 
                     case R.id.nav_calendar:
-                        FragmentTransaction fragmentTransactionCalendar = getSupportFragmentManager().beginTransaction();
-                        fragmentTransactionCalendar.replace(R.id.fragment_container, new EventCalendarFragment()).commit();
+                        changeFragment(new EventCalendarFragment());
                         drawerLayout.closeDrawer(GravityCompat.START);
                         mainAppTitle.setText("Events Calendar");
                         viewWrapper.setVisibility(View.VISIBLE);
+
+                        switchedToEventsCalendar2 = false;
+
                         break;
 
                     case R.id.nav_members_cars:
@@ -126,11 +160,11 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.nav_manage_members:
-                        FragmentTransaction fragmentTransactionForManageMembers = getSupportFragmentManager().beginTransaction();
-                        fragmentTransactionForManageMembers.replace(R.id.fragment_container, new ManageMembersFragment()).commit();
+                        changeFragment(new ManageMembersFragment());
                         drawerLayout.closeDrawer(GravityCompat.START);
                         mainAppTitle.setText("Manage Members");
                         viewWrapper.setVisibility(View.INVISIBLE);
+
                         break;
 
                     case R.id.nav_admin_log:
@@ -162,12 +196,21 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
+                FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getApplicationContext(), LoginActivity.class);
-                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(intent);
                 finish();
             }
         });
+    }
+
+    private void changeFragment(Fragment newFragment) {
+        if (getSupportFragmentManager() != null) {
+            FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.fragment_container, newFragment)
+                    .commit();
+        }
     }
 
     @Override

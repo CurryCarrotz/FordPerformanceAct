@@ -46,7 +46,7 @@
     <Button
         android:id="@+id/create_new_event"
         android:layout_width="match_parent"
-        android:layout_height="100dp"
+        android:layout_height="75dp"
         android:layout_margin="8dp"
         android:text="Create a New Event"
         android:textColor="@color/colorGeneralText"
