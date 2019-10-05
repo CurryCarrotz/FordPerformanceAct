@@ -45,7 +45,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Locale;
 
-import sun.bob.mcalendarview.MCalendarView;
 
 
 public class EventCalendarFragment extends Fragment {
@@ -141,7 +140,7 @@ public class EventCalendarFragment extends Fragment {
 
                     // Create dialog builder, that is to say, we are creating the content of the pop up dialog/window.
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setView(R.layout.create_event_window);
+                    builder.setView(R.layout.window_create_event);
 
 
                     createEventWindow = builder.create();

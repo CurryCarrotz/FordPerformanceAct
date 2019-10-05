@@ -18,54 +18,53 @@
             android:id="@+id/home_toolbar"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
             app:titleTextColor="@color/colorGeneralText">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:weightSum="2">
 
                 <TextView
                     android:id="@+id/main_app_title"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="      Home"
-                    android:textColor="#fff"
-                    android:textSize="25sp"
-                    android:gravity="center"
-                    android:textAlignment="center"
                     android:layout_weight="1"
-                    />
+                    android:gravity="center"
+                    android:text="      Home"
+                    android:textAlignment="center"
+                    android:textColor="#fff"
+                    android:textSize="25sp" />
 
                 <LinearLayout
                     android:id="@+id/view_wrapper"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:orientation="vertical"
                     android:gravity="center"
+                    android:orientation="vertical"
                     android:visibility="invisible">
 
                     <ImageView
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
-                        android:src="@drawable/icon_view"
                         android:contentDescription="View"
-                        />
+                        android:src="@drawable/icon_view" />
 
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:gravity="center"
                         android:text="View"
                         android:textColor="#fff"
-                        android:textSize="12sp"
-                        android:gravity="center"/>
+                        android:textSize="12sp" />
 
                 </LinearLayout>
-        </LinearLayout>
-    </android.support.v7.widget.Toolbar>
+            </LinearLayout>
+        </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
 
     <FrameLayout

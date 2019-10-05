@@ -6,6 +6,7 @@ import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
@@ -54,21 +55,26 @@ public class LoginActivity extends AppCompatActivity {
             @Override
             public void onClick(final View view) {
 
-                FirebaseAuth.getInstance().signInWithEmailAndPassword(usernameLogin.getText().toString(), passwordLogin.getText().toString())
-                        .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
-                            @Override
-                            public void onComplete(@NonNull Task<AuthResult> task) {
-                                if (task.isSuccessful()) {
-                                    Intent intent = new Intent(getApplicationContext(), MainActivity.class);
-                                    intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                                    startActivity(intent);
-                                    finish();
+                if (!TextUtils.isEmpty(usernameLogin.getText()) && !TextUtils.isEmpty(passwordLogin.getText())) {
+
+                    FirebaseAuth.getInstance().signInWithEmailAndPassword(usernameLogin.getText().toString(), passwordLogin.getText().toString())
+                            .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
+                                @Override
+                                public void onComplete(@NonNull Task<AuthResult> task) {
+                                    if (task.isSuccessful()) {
+                                        Intent intent = new Intent(getApplicationContext(), MainActivity.class);
+                                        intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
+                                        startActivity(intent);
+                                        finish();
+                                    } else {
+                                        Snackbar.make(view, "Wrong email or password.", Snackbar.LENGTH_LONG).show();
+                                    }
                                 }
-                                else {
-                                    Snackbar.make(view, "Wrong email or password.", Snackbar.LENGTH_LONG).show();
-                                }
-                            }
-                        });
+                            });
+                }
+                else {
+                    Snackbar.make(view, "Fields must not be empty.", Snackbar.LENGTH_LONG).show();
+                }
             }
         });
 
@@ -95,7 +101,7 @@ public class LoginActivity extends AppCompatActivity {
         paramsForEmailField.height = 90;
 
         // declare email field and set attributes to it
-        EditText emailField = new EditText(LoginActivity.this);
+        final EditText emailField = new EditText(LoginActivity.this);
         emailField.setId(R.id.password_login);
         emailField.setSingleLine(true);
         emailField.setBackgroundResource(R.drawable.field_popup);
@@ -120,6 +126,25 @@ public class LoginActivity extends AppCompatActivity {
         btnSubmit.setBackgroundResource(R.drawable.btn_popup_window);
         btnSubmit.setPadding(200, 0, 200, 0);
         btnSubmit.setLayoutParams(paramsForButtonSubmit);
+        btnSubmit.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(final View v) {
+                FirebaseAuth.getInstance().sendPasswordResetEmail(emailField.getText().toString())
+                        .addOnCompleteListener(new OnCompleteListener<Void>() {
+                            @Override
+                            public void onComplete(@NonNull Task<Void> task) {
+                                if (task.isSuccessful()) {
+
+                                    popupWindow.dismiss();
+                                    Snackbar.make(v, "Password reset request has been sent to your email.", Snackbar.LENGTH_SHORT).show();
+                                }
+                                else {
+                                    Snackbar.make(v, "Entered email is not registered yet.", Snackbar.LENGTH_SHORT).show();
+                                }
+                            }
+                        });
+            }
+        });
 
 
         // apply the required objects to their parent, linearlayout

@@ -128,7 +128,7 @@ public class EventCalendarFragment2 extends Fragment {
                 if (getContext() != null) {
 
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
-                    builder.setView(R.layout.create_event_window);
+                    builder.setView(R.layout.window_create_event);
 
                     createEventWindow = builder.create();
                     createEventWindow.show();

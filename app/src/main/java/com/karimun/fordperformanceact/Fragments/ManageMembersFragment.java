@@ -1,6 +1,5 @@
 package com.karimun.fordperformanceact.Fragments;
 
-import android.graphics.PorterDuff;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;

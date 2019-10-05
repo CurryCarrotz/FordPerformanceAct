@@ -15,7 +15,7 @@
         android:layout_width="75dp"
         android:layout_height="75dp"
         android:layout_centerVertical="true"
-        android:src="@mipmap/ic_launcher"/>
+        android:src="@drawable/image_default"/>
 
     <LinearLayout
         android:id="@+id/member_info_wrapper"

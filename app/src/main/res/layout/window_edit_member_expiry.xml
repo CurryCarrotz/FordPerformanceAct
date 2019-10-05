@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#CC0E2D3F"
+    android:orientation="vertical"
+    android:padding="10dp">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="10dp"
+        android:text="Membership Expiry"
+        android:textColor="@color/colorGeneralText"
+        android:textSize="23sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:labelFor="@+id/field_old_membership_role"
+            android:text="Old membership expiry date"
+            android:textColor="@color/colorGeneralText"
+            android:layout_marginStart="8dp"/>
+
+        <EditText
+            android:id="@+id/field_old_membership_expiry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="13dp"
+            android:background="@drawable/field_popup"
+            android:padding="8dp" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:labelFor="@+id/field_new_membership_role"
+            android:text="New membership expiry date"
+            android:textColor="@color/colorGeneralText"
+            android:layout_marginStart="8dp"/>
+
+        <EditText
+            android:id="@+id/field_new_membership_expiry"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="13dp"
+            android:background="@drawable/field_popup"
+            android:padding="8dp" />
+
+        <Button
+            android:id="@+id/confirm_changes"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:background="@drawable/btn_popup_window"
+            android:text="Confirm changes" />
+    </LinearLayout>
+
+</LinearLayout>
