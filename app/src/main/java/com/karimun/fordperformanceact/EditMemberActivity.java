@@ -18,14 +18,22 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.Toast;
 
+import com.google.firebase.database.DataSnapshot;
+import com.google.firebase.database.DatabaseError;
+import com.google.firebase.database.DatabaseReference;
+import com.google.firebase.database.FirebaseDatabase;
+import com.google.firebase.database.ValueEventListener;
 import com.jgabrielfreitas.core.BlurImageView;
+import com.karimun.fordperformanceact.Models.Member;
 
+import java.util.HashMap;
 
 
 public class EditMemberActivity extends AppCompatActivity {
 
-    String usernameValue, firstNameValue, surnameValue, emailValue, memberRoleValue, membershipExpiryValue;
+    String memberId, usernameValue, firstNameValue, surnameValue, emailValue, memberRoleValue, membershipExpiryValue;
 
+    EditText membershipRole;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -38,7 +46,7 @@ public class EditMemberActivity extends AppCompatActivity {
         EditText firstName = findViewById(R.id.field_first_name);
         EditText surname = findViewById(R.id.field_surname);
         EditText email = findViewById(R.id.field_email);
-        EditText membershipRole = findViewById(R.id.field_membership_role);
+        membershipRole = findViewById(R.id.field_membership_role);
         EditText membershipExpiry = findViewById(R.id.field_membership_expiry);
         ImageView editMembershipRole = findViewById(R.id.edit_membership_role);
         ImageView editMembershipExpiry = findViewById(R.id.edit_membership_expiry);
@@ -64,17 +72,18 @@ public class EditMemberActivity extends AppCompatActivity {
             imageView.setImageBitmap(bmBackgroundImage);
             imageView.setBlur(5);
         } else {
-            Toast.makeText(this, "bmBackgroundImage is null", Toast.LENGTH_LONG).show();
+            Toast.makeText(this, "bmBackgroundImage is null.", Toast.LENGTH_LONG).show();
         }
 
         // Render fields unclickable and hide soft keyboard if soft keyboard somehow appears
         setAttrOnEditTexts(username, firstName, surname, email, membershipRole, membershipExpiry);
 
-        // Set OnClick listener on member role and expiry
+        // Set OnClick listener for member role and expiry
         editableMemberDetailsOnClick(EditMemberActivity.this, editMembershipRole, editMembershipExpiry);
 
 
         if (bundle != null) {
+            memberId = bundle.getString("memberId");
             usernameValue = bundle.getString("username");
             firstNameValue = bundle.getString("firstName");
             surnameValue = bundle.getString("surname");
@@ -84,7 +93,6 @@ public class EditMemberActivity extends AppCompatActivity {
 
             // Set user details to each field
             setUserDetails(username, firstName, surname, email, membershipRole, membershipExpiry);
-
         }
     }
 
@@ -126,10 +134,85 @@ public class EditMemberActivity extends AppCompatActivity {
                 AlertDialog.Builder memberRoleDialogBuilder = new AlertDialog.Builder(activity);
                 memberRoleDialogBuilder.setView(R.layout.window_edit_member_role);
 
-                AlertDialog memberRoleDialog = memberRoleDialogBuilder.create();
+                final AlertDialog memberRoleDialog = memberRoleDialogBuilder.create();
                 memberRoleDialog.show();
 
+                final EditText fieldOldMembershipRole = memberRoleDialog.findViewById(R.id.field_old_membership_role);
+                final EditText fieldNewMembershipRole = memberRoleDialog.findViewById(R.id.field_new_membership_role);
                 Button confirmChanges = memberRoleDialog.findViewById(R.id.confirm_changes);
+
+                if (fieldOldMembershipRole != null) {
+                    fieldOldMembershipRole.setInputType(InputType.TYPE_NULL);
+                    fieldOldMembershipRole.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            hideSoftKeyboard(v);
+                        }
+                    });
+                }
+
+                final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Member").child(memberId);
+                reference.addValueEventListener(new ValueEventListener() {
+                    @Override
+                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                        Member member = dataSnapshot.getValue(Member.class);
+
+                        if (member != null && fieldOldMembershipRole != null) {
+
+                            fieldOldMembershipRole.setText(member.getMemberRole());
+                        }
+                    }
+
+                    @Override
+                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                    }
+                });
+
+                if (confirmChanges != null)
+                    confirmChanges.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+
+                            if (fieldNewMembershipRole != null) {
+
+                                HashMap<String, Object> hashMap = new HashMap<>();
+                                hashMap.put("memberRole", fieldNewMembershipRole.getText().toString());
+
+                                if (!fieldNewMembershipRole.getText().toString().equalsIgnoreCase("Admin".trim())) {
+                                    hashMap.put("isAdmin", false);
+                                } else {
+                                    hashMap.put("isAdmin", true);
+                                }
+
+                                reference.updateChildren(hashMap);
+
+                                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Member").child(memberId);
+                                reference.addValueEventListener(new ValueEventListener() {
+                                    @Override
+                                    public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                                        Member member = dataSnapshot.getValue(Member.class);
+
+                                        if (member != null) {
+
+                                            membershipRole.setText(member.getMemberRole());
+                                            memberRoleDialog.dismiss();
+                                            Toast.makeText(EditMemberActivity.this,
+                                                    "Member role updated!", Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
+                                    @Override
+                                    public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                                    }
+                                });
+
+
+                            }
+                        }
+                    });
             }
         });
 
@@ -145,6 +228,6 @@ public class EditMemberActivity extends AppCompatActivity {
 
                 Button confirmChanges = memberExpiryDialog.findViewById(R.id.confirm_changes);
             }
-         });
+        });
     }
 }

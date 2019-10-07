@@ -79,40 +79,41 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         try {
 
             // Days
-            //String labeledDate = viewHolder.dateStamp.getText().toString().substring(5);
+            String labeledDate = viewHolder.dateStamp.getText().toString().substring(5);
 
             Calendar currentDay = Calendar.getInstance();
             final Calendar startDay = Calendar.getInstance();
             final Calendar endDay = Calendar.getInstance();
 
             SimpleDateFormat ourDateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
-            startDay.setTime(ourDateFormat.parse(ourEvent.getDateStart()));
+            startDay.setTime(ourDateFormat.parse(labeledDate));
 
             if (!ourEvent.getDateEnd().equals(""))
-            endDay.setTime(ourDateFormat.parse(ourEvent.getDateEnd()));
+                endDay.setTime(ourDateFormat.parse(ourEvent.getDateEnd()));
 
             long finalDayCurrent = TimeUnit.MILLISECONDS.toDays(currentDay.getTimeInMillis());
             long finalDayStart = TimeUnit.MILLISECONDS.toDays(startDay.getTimeInMillis()) + 1;
             long daysLeftBeforeEventStarts = finalDayStart - finalDayCurrent;
 
-            long finalDayEnd= TimeUnit.MILLISECONDS.toDays(endDay.getTimeInMillis()) + 1;
+            long finalDayEnd = TimeUnit.MILLISECONDS.toDays(endDay.getTimeInMillis()) + 1;
             long daysLeftBeforeEventEnds = finalDayEnd - finalDayCurrent;
 
             // Hours and minutes
-            //String labeledTimeStart = viewHolder.timeStamp.getText().toString().substring(0, 8);
-            //String labeledTimeEnd = viewHolder.timeStamp.getText().toString().substring(11);
-
             Calendar currentTime = Calendar.getInstance();
             Calendar targetTimeStart = Calendar.getInstance();
             Calendar targetTimeEnd = Calendar.getInstance();
 
             SimpleDateFormat ourTimeFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
 
-            if (!ourEvent.getTimeStart().equals(""))
-            targetTimeStart.setTime(ourTimeFormat.parse(ourEvent.getTimeStart()));
+            // If not all-day
+            if (!ourEvent.getTimeStart().equals("") && !ourEvent.getTimeEnd().equals("")) {
 
-            if (!ourEvent.getTimeEnd().equals(""))
-            targetTimeEnd.setTime(ourTimeFormat.parse(ourEvent.getTimeEnd()));
+                String labeledTimeStart = viewHolder.timeStamp.getText().toString().substring(0, 8);
+                String labeledTimeEnd = viewHolder.timeStamp.getText().toString().substring(11);
+
+                targetTimeStart.setTime(ourTimeFormat.parse(labeledTimeStart));
+                targetTimeEnd.setTime(ourTimeFormat.parse(labeledTimeEnd));
+            }
 
             int finalHourCurrent = currentTime.get(Calendar.HOUR_OF_DAY);
             int finalHourStart = targetTimeStart.get(Calendar.HOUR_OF_DAY);
@@ -122,7 +123,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             int finalMinuteStart = targetTimeStart.get(Calendar.MINUTE);
             int finalMinuteEnd = targetTimeEnd.get(Calendar.MINUTE);
 
-            // Determine time
+            // Determine number of days left
             if (daysLeftBeforeEventStarts > 0) {
 
                 if (daysLeftBeforeEventStarts == 1) {
@@ -146,8 +147,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                         if (finalHourCurrent == finalHourStart)
                             if (finalMinuteCurrent < finalMinuteStart) {
                                 viewHolder.dayCounter.setText("Today");
-                            }
-                            else {
+                            } else {
                                 viewHolder.dayCounter.setText("Now");
                             }
 
@@ -157,10 +157,9 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                         if (finalHourCurrent == finalHourEnd)
                             if (finalMinuteCurrent > finalMinuteEnd)
                                 viewHolder.dayCounter.setText("Expired");
-                    }
-                    else {
+                    } else {
                         if (finalHourCurrent > finalHourStart)
-                                viewHolder.dayCounter.setText("Now");
+                            viewHolder.dayCounter.setText("Now");
 
                         if (finalHourCurrent < finalHourStart)
                             viewHolder.dayCounter.setText("Today");
@@ -168,38 +167,35 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
                         if (finalHourCurrent == finalHourStart)
                             if (finalMinuteCurrent < finalMinuteStart) {
                                 viewHolder.dayCounter.setText("Today");
-                            }
-                            else {
+                            } else {
                                 viewHolder.dayCounter.setText("Now");
                             }
                     }
-                }
-                else {
+                } else {
                     viewHolder.dayCounter.setText("Now");
                 }
             } else {
 
                 if (viewHolder.timeStamp.getText().toString().equals("All day")) {
                     viewHolder.dayCounter.setText("Expired");
-                }
-                else {
+                } else {
 
                     if (daysLeftBeforeEventEnds > 0) {
                         viewHolder.dayCounter.setText("Now");
-                    } else {
+                    } else if (daysLeftBeforeEventEnds == 0) {
                         if (finalHourCurrent > finalHourEnd) {
                             viewHolder.dayCounter.setText("Expired");
-                        }
-                        else if (finalHourCurrent == finalHourEnd) {
+                        } else if (finalHourCurrent == finalHourEnd) {
                             if (finalMinuteCurrent > finalMinuteEnd) {
                                 viewHolder.dayCounter.setText("Expired");
                             } else {
                                 viewHolder.dayCounter.setText("Now");
                             }
-                        }
-                        else {
+                        } else {
                             viewHolder.dayCounter.setText("Now");
                         }
+                    } else {
+                        viewHolder.dayCounter.setText("Expired");
                     }
                 }
             }
@@ -215,6 +211,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             reference.updateChildren(hashMap);
         }
 
+        // Method used to delete events that have expired
         deleteEventWhenExpired();
     }
 

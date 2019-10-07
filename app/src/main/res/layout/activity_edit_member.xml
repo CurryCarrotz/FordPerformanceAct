@@ -91,7 +91,8 @@
                     android:inputType="text"
                     android:padding="8dp"
                     android:textColor="#9a9a9a"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    android:singleLine="true"/>
 
                 <TextView
                     android:id="@+id/label_first_name"
@@ -113,7 +114,8 @@
                     android:inputType="text"
                     android:padding="8dp"
                     android:textColor="#9a9a9a"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    android:singleLine="true"/>
 
                 <TextView
                     android:id="@+id/label_surname"
@@ -135,7 +137,8 @@
                     android:inputType="text"
                     android:padding="8dp"
                     android:textColor="#9a9a9a"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    android:singleLine="true"/>
 
                 <TextView
                     android:id="@+id/label_email"
@@ -157,7 +160,8 @@
                     android:inputType="textEmailAddress"
                     android:padding="8dp"
                     android:textColor="#9a9a9a"
-                    android:textSize="17sp" />
+                    android:textSize="17sp"
+                    android:singleLine="true"/>
 
                 <TextView
                     android:id="@+id/label_membership_role"
@@ -183,7 +187,8 @@
                         android:inputType="text"
                         android:padding="8dp"
                         android:textColor="@color/colorGeneralText"
-                        android:textSize="17sp" />
+                        android:textSize="17sp"
+                        android:singleLine="true"/>
 
                     <ImageView
                         android:id="@+id/edit_membership_role"
@@ -220,7 +225,8 @@
                         android:inputType="date"
                         android:padding="8dp"
                         android:textColor="@color/colorGeneralText"
-                        android:textSize="17sp" />
+                        android:textSize="17sp"
+                        android:singleLine="true"/>
 
                     <ImageView
                         android:id="@+id/edit_membership_expiry"

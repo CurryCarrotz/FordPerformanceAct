@@ -2,12 +2,17 @@ package com.karimun.fordperformanceact.Models;
 
 public class Member {
 
-    String username, email, memberRole, membershipExpiry, address, firstName, surname, mobilePhone, postcode, spouseName, state, suburb;
+    String memberId, username, email, memberRole, membershipExpiry, address, firstName, surname, mobilePhone, postcode, spouseName, state, suburb;
     boolean isAdmin;
 
     Member() {}
 
-    public Member(String username, String email, String memberRole, String membershipExpiry, String address, String firstName, String surname, String mobilePhone, String postcode, String spouseName, String state, String suburb, boolean isAdmin) {
+    public Member(String memberId, String username, String email, String memberRole
+            , String membershipExpiry, String address, String firstName, String surname
+            , String mobilePhone, String postcode, String spouseName, String state
+            , String suburb, boolean isAdmin) {
+
+        this.memberId = memberId;
         this.username = username;
         this.email = email;
         this.memberRole = memberRole;
@@ -21,6 +26,14 @@ public class Member {
         this.state = state;
         this.suburb = suburb;
         this.isAdmin = isAdmin;
+    }
+
+    public String getMemberId() {
+        return memberId;
+    }
+
+    public void setMemberId(String memberId) {
+        this.memberId = memberId;
     }
 
     public String getAddress() {

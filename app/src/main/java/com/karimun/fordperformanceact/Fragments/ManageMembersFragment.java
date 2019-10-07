@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.google.firebase.database.DataSnapshot;
@@ -28,6 +29,7 @@ import java.util.List;
 
 public class ManageMembersFragment extends Fragment {
 
+    EditText searchMembers;
     TextView noMemberText;
     RecyclerView recyclerView;
 
@@ -50,6 +52,7 @@ public class ManageMembersFragment extends Fragment {
         ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon_hamburger);
 
         noMemberText = view.findViewById(R.id.no_member_text);
+        searchMembers = view.findViewById(R.id.search_members);
         recyclerView = view.findViewById(R.id.recycle_view);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));

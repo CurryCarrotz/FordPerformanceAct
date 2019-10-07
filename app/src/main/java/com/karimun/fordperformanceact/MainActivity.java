@@ -105,6 +105,9 @@ public class MainActivity extends AppCompatActivity {
                     if (member.isAdmin()) {
                         navigationView.getMenu().getItem(8).setVisible(true);
                     }
+                    else {
+                        navigationView.getMenu().getItem(8).setVisible(false);
+                    }
                 }
             }
 

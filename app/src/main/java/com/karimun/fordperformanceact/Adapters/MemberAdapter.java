@@ -50,6 +50,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             public void onClick(View v) {
 
                 Intent intent = new Intent(context, EditMemberActivity.class);
+                intent.putExtra("memberId", member.getMemberId());
                 intent.putExtra("username", member.getUsername());
                 intent.putExtra("firstName", member.getFirstName());
                 intent.putExtra("surname", member.getSurname());

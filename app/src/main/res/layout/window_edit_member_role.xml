@@ -35,7 +35,10 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="13dp"
             android:background="@drawable/field_popup"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:singleLine="true"
+            android:focusable="false"
+            />
 
         <TextView
             android:layout_width="wrap_content"
@@ -52,7 +55,8 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="13dp"
             android:background="@drawable/field_popup"
-            android:padding="8dp" />
+            android:padding="8dp"
+            android:singleLine="true"/>
 
         <Button
             android:id="@+id/confirm_changes"
