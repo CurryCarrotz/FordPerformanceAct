@@ -58,6 +58,7 @@ public class MainActivity extends AppCompatActivity {
         final TextView username = navigationView.getHeaderView(0).findViewById(R.id.username);
         final TextView email = navigationView.getHeaderView(0).findViewById(R.id.email_address);
         Button btnSignout = navigationView.getHeaderView(0).findViewById(R.id.button_signout);
+        TextView btnEditProfile = navigationView.getHeaderView(0).findViewById(R.id.btn_edit_profile);
         viewWrapper = findViewById(R.id.view_wrapper);
 
         viewWrapper.setOnClickListener(new View.OnClickListener() {
@@ -194,6 +195,13 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(MainActivity.this, "This will direct you to facebook", Toast.LENGTH_SHORT).show();
                     }
                 });
+
+        btnEditProfile.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v){
+                startActivity(new Intent(MainActivity.this, EditProfileActivity.class));
+            }
+        });
 
         btnSignout.setOnClickListener(new View.OnClickListener() {
             @Override

@@ -6,5 +6,6 @@
     <color name="colorWhite">#ffffff</color>
     <color name="colorGeneralText">#ffffff</color>
     <color name="colorNavigationListDivider">#CDCDCD</color>
+    <color name="colorTransparent">#00ffffff</color>
     <color name="colorDarkerBackground">#0D2736</color>
 </resources>
