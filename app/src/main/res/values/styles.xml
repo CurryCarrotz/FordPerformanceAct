@@ -39,4 +39,28 @@
         <item name="colorAccent">@color/colorDarkerBackground</item>
     </style>
 
+    <style name="snowy_mount">
+
+        <item name="android:textSize">
+            24sp
+        </item>
+
+        <item name="android:textColor">
+            #FFFFFF
+        </item>
+
+    </style>
+
+    <style name="photos">
+
+        <item name="android:textSize">
+            16sp
+        </item>
+
+        <item name="android:textColor">
+            #8D8D8D
+        </item>
+
+    </style>
+
 </resources>

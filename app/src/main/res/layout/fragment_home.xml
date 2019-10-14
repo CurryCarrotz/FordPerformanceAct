@@ -262,18 +262,18 @@
                 android:weightSum="2">
 
                 <ImageView
-                    android:id="@+id/events_gallery"
+                    android:id="@+id/events_photos"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
-                    android:contentDescription="Events Gallery"
+                    android:contentDescription="Event Photos"
                     android:src="@drawable/image_events_gallery" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight="0"
-                    android:text="Events Gallery"
+                    android:text="Event Photos"
                     android:textColor="@color/colorGeneralText"
                     android:textSize="23sp" />
             </LinearLayout>

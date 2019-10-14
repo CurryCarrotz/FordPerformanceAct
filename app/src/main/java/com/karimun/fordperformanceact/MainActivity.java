@@ -42,6 +42,7 @@ public class MainActivity extends AppCompatActivity {
     public static ActionBarDrawerToggle toggle;
 
     public static boolean switchedToEventsCalendar2 = false;
+    public static boolean switchedToEventPhotos = false;
 
     FirebaseUser user;
 
@@ -59,6 +60,8 @@ public class MainActivity extends AppCompatActivity {
         final TextView email = navigationView.getHeaderView(0).findViewById(R.id.email_address);
         Button btnSignout = navigationView.getHeaderView(0).findViewById(R.id.button_signout);
         TextView btnEditProfile = navigationView.getHeaderView(0).findViewById(R.id.btn_edit_profile);
+        TextView btnEventPhotos = navigationView.getHeaderView(0).findViewById(R.id.nav_event_photos);
+
         viewWrapper = findViewById(R.id.view_wrapper);
 
         viewWrapper.setOnClickListener(new View.OnClickListener() {

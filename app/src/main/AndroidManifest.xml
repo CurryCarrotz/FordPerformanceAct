@@ -11,6 +11,7 @@
         android:theme="@style/AppTheme">
         <activity android:name=".EditMemberActivity"></activity>
         <activity android:name=".EditProfileActivity"></activity>
+        <activity android:name=".EventPhotosActivity"></activity>
         <activity
             android:name=".MainActivity"
             android:configChanges="orientation|screenSize|keyboardHidden"></activity>
