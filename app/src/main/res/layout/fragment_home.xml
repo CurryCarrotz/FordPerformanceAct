@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
-    android:padding="8dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:padding="8dp">
 
 
     <android.support.v7.widget.GridLayout
@@ -14,41 +14,78 @@
         app:rowCount="3">
 
         <android.support.v7.widget.CardView
-            android:id="@+id/item_events_calendar"
+            android:id="@+id/item_edit_profile"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp"
-            app:cardElevation="0dp"
             app:cardBackgroundColor="#55BBB7B7"
             app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
             app:layout_columnWeight="1"
             app:layout_rowWeight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:weightSum="2">
+
+                <ImageView
+                    android:id="@+id/edit_profile"
+                    android:layout_width="0dp"
+                    android:layout_height="50dp"
+                    android:layout_weight="1"
+                    android:contentDescription="Members Cars"
+                    android:src="@drawable/edit_profile" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="0"
+                    android:text="Edit Profile"
+                    android:textColor="@color/colorGeneralText"
+                    android:textSize="20sp" />
+            </LinearLayout>
+        </android.support.v7.widget.CardView>
+
+        <android.support.v7.widget.CardView
+            android:id="@+id/item_events_calendar"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginLeft="8dp"
+            android:layout_marginTop="8dp"
+            android:layout_marginRight="8dp"
+            app:cardBackgroundColor="#55BBB7B7"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
+            app:layout_columnWeight="1"
+            app:layout_rowWeight="1">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:weightSum="2">
 
                 <ImageView
                     android:id="@+id/events_calendar"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/image_events_calendar"
+                    android:layout_weight="1"
                     android:contentDescription="Events Calendar"
-                    android:layout_weight="1">
-                </ImageView>
+                    android:src="@drawable/image_events_calendar"></ImageView>
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0"
                     android:text="Events Calendar"
-                    android:textSize="20sp"
                     android:textColor="@color/colorGeneralText"
-                    android:layout_weight="0"/>
+                    android:textSize="20sp" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -56,37 +93,37 @@
             android:id="@+id/item_commitee"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp"
-            app:cardElevation="0dp"
             app:cardBackgroundColor="#55BBB7B7"
             app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
             app:layout_columnWeight="1"
-            app:layout_rowWeight="1"
-            >
+            app:layout_rowWeight="1">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:weightSum="2">
 
                 <ImageView
                     android:id="@+id/commitee"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/image_commitee"
+                    android:layout_weight="1"
                     android:contentDescription="Commitee"
-                    android:layout_weight="1"/>
+                    android:src="@drawable/image_commitee" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0"
                     android:text="Commitee"
-                    android:textSize="20sp"
                     android:textColor="@color/colorGeneralText"
-                    android:layout_weight="0"/>
+                    android:textSize="20sp" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -94,38 +131,37 @@
             android:id="@+id/item_membership"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp"
-            app:cardElevation="0dp"
             app:cardBackgroundColor="#55BBB7B7"
             app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
             app:layout_columnWeight="1"
-            app:layout_rowWeight="1"
-            >
+            app:layout_rowWeight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:weightSum="2">
 
                 <ImageView
                     android:id="@+id/membership"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/image_membership"
+                    android:layout_weight="1"
                     android:contentDescription="Membership"
-                    android:layout_weight="1"/>
+                    android:src="@drawable/image_membership" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0"
                     android:text="Membership"
-                    android:textSize="23sp"
                     android:textColor="@color/colorGeneralText"
-                    android:layout_weight="0"/>
+                    android:textSize="23sp" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -133,38 +169,37 @@
             android:id="@+id/item_merchandise"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp"
-            app:cardElevation="0dp"
             app:cardBackgroundColor="#55BBB7B7"
             app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
             app:layout_columnWeight="1"
-            app:layout_rowWeight="1"
-            >
+            app:layout_rowWeight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:weightSum="2">
 
                 <ImageView
                     android:id="@+id/merchandise"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/image_merchandise"
+                    android:layout_weight="1"
                     android:contentDescription="Merchandise"
-                    android:layout_weight="1"/>
+                    android:src="@drawable/image_merchandise" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0"
                     android:text="Merchandise"
-                    android:textSize="23sp"
                     android:textColor="@color/colorGeneralText"
-                    android:layout_weight="0"/>
+                    android:textSize="23sp" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -172,38 +207,37 @@
             android:id="@+id/item_members_cars"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp"
-            app:cardElevation="0dp"
             app:cardBackgroundColor="#55BBB7B7"
             app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
             app:layout_columnWeight="1"
-            app:layout_rowWeight="1"
-            >
+            app:layout_rowWeight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:weightSum="2">
 
                 <ImageView
                     android:id="@+id/members_cars"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/image_members_cars"
+                    android:layout_weight="1"
                     android:contentDescription="Members Cars"
-                    android:layout_weight="1"/>
+                    android:src="@drawable/image_members_cars" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_weight="0"
                     android:text="Members Cars"
-                    android:textSize="23sp"
                     android:textColor="@color/colorGeneralText"
-                    android:layout_weight="0"/>
+                    android:textSize="23sp" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
 
@@ -211,38 +245,37 @@
             android:id="@+id/item_events_gallery"
             android:layout_width="0dp"
             android:layout_height="0dp"
+            android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp"
-            app:cardElevation="0dp"
             app:cardBackgroundColor="#55BBB7B7"
             app:cardCornerRadius="20dp"
+            app:cardElevation="0dp"
             app:layout_columnWeight="1"
-            app:layout_rowWeight="1"
-            >
+            app:layout_rowWeight="1">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:orientation="horizontal"
                 android:gravity="center_vertical"
+                android:orientation="horizontal"
                 android:weightSum="2">
 
                 <ImageView
-                    android:id="@+id/events_gallery"
+                    android:id="@+id/events_photos"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
-                    android:src="@drawable/image_events_gallery"
-                    android:contentDescription="Events Gallery"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1"
+                    android:contentDescription="Event Photos"
+                    android:src="@drawable/image_events_gallery" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Events Gallery"
-                    android:textSize="23sp"
+                    android:layout_weight="0"
+                    android:text="Event Photos"
                     android:textColor="@color/colorGeneralText"
-                    android:layout_weight="0"/>
+                    android:textSize="23sp" />
             </LinearLayout>
         </android.support.v7.widget.CardView>
     </android.support.v7.widget.GridLayout>

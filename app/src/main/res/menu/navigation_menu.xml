@@ -23,6 +23,11 @@
             android:icon="@drawable/nav_members_cars"/>
 
         <item
+            android:id="@+id/nav_event_photos"
+            android:title="Events Photos"
+            android:icon="@drawable/nav_gallery"/>
+
+        <item
             android:id="@+id/nav_membership"
             android:title="Membership"
             android:icon="@drawable/nav_membership"/>
