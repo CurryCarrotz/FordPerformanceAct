@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/image_background">
+
+    <TextView
+        android:id="@+id/merchandise"
+        android:layout_width="411dp"
+        android:layout_height="34dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="10dp"
+        android:gravity="center_vertical"
+        android:text="Merchandise"
+        android:textColor="@color/colorGeneralText"
+        android:textSize="30sp" />
+
+    <View
+        android:id="@+id/line"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_width="401.02dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="39dp"
+        android:background="#B9B9B9" />
+
+    <RelativeLayout
+        android:id="@+id/tiles"
+        android:layout_width="190dp"
+        android:layout_height="350dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="49dp"
+        android:background="@drawable/tiles"
+        android:elevation="4dp">
+
+        <View
+            android:id="@+id/shirt_image"
+            android:layout_width="190dp"
+            android:layout_height="255dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/black_tee" />
+
+        <TextView
+            android:id="@+id/black_tee"
+            android:layout_width="190dp"
+            android:layout_height="28dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="260dp"
+            android:gravity="center_vertical"
+            android:text="Black Tee"
+            android:textColor="@color/colorGeneralText"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/remove"
+            android:layout_width="190dp"
+            android:layout_height="28dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="320dp"
+            android:gravity="center_vertical"
+            android:text="Remove"
+            android:textColor="#FF3A0F"
+            android:textSize="19sp" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="106dp"
+            android:layout_height="28dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="290dp"
+            android:gravity="center_vertical"
+            android:text="$10.50"
+            android:textColor="@color/colorGeneralText"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/edit"
+            android:layout_width="50dp"
+            android:layout_height="28dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="141dp"
+            android:layout_marginTop="320dp"
+            android:gravity="center_vertical"
+            android:text="Edit"
+            android:textColor="#00D1FF"
+            android:textSize="19sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/tiles2"
+        android:layout_width="190dp"
+        android:layout_height="350dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="210dp"
+        android:layout_marginTop="49dp"
+        android:background="@drawable/tiles"
+        android:elevation="4dp">
+
+        <View
+            android:id="@+id/shirt_image2"
+            android:layout_width="190dp"
+            android:layout_height="255dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/beanie" />
+
+        <TextView
+            android:id="@+id/black_tee2"
+            android:layout_width="190dp"
+            android:layout_height="28dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="260dp"
+            android:gravity="center_vertical"
+            android:text="Black Tee"
+            android:textColor="@color/colorGeneralText"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/remove2"
+            android:layout_width="190dp"
+            android:layout_height="28dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="320dp"
+            android:gravity="center_vertical"
+            android:text="Remove"
+            android:textColor="#FF3A0F"
+            android:textSize="19sp" />
+
+        <TextView
+            android:id="@+id/price2"
+            android:layout_width="106dp"
+            android:layout_height="28dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="290dp"
+            android:gravity="center_vertical"
+            android:text="$10.50"
+            android:textColor="@color/colorGeneralText"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/edit2"
+            android:layout_width="106dp"
+            android:layout_height="28dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="141dp"
+            android:layout_marginTop="320dp"
+            android:gravity="center_vertical"
+            android:text="Edit"
+            android:textColor="#00D1FF"
+            android:textSize="19sp" />
+
+    </RelativeLayout>
+
+
+
+    <RelativeLayout
+        android:id="@+id/add_box"
+        android:layout_width="386dp"
+        android:layout_height="43dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="664dp"
+        android:background="@drawable/rectangle_1"
+        android:elevation="4dp">
+
+    <TextView
+        android:id="@+id/add_merc"
+        android:layout_width="386dp"
+        android:layout_height="43dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:gravity="center_horizontal|center_vertical"
+        android:text="Add New Merchandise"
+        android:textColor="#000000"
+        android:textSize="22sp" />
+    </RelativeLayout>
+
+</RelativeLayout>
