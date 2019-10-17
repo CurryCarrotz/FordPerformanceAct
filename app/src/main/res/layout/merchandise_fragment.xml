@@ -1,253 +1,231 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/merchandise_fragment"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:clipToOutline="true"
-    android:background="#FFFFFF">
-
-    <View
-        android:id="@+id/linear_back"
-        android:layout_width="411dp"
-        android:layout_height="731dp"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="-24dp"
-        android:background="@drawable/linear_back"
-        android:elevation="4dp"
-        />
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/image_background">
 
     <TextView
         android:id="@+id/merchandise"
         android:layout_width="411dp"
-        android:layout_height="26dp"
+        android:layout_height="34dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="29dp"
-        android:text="Merchandise"
-        android:textSize="20sp"
-        android:textColor="@color/colorGeneralText"
+        android:layout_marginTop="3dp"
+        android:layout_marginLeft="10dp"
         android:gravity="center_vertical"
-        />
+        android:text="Merchandise"
+        android:textColor="@color/colorGeneralText"
+        android:textSize="30sp" />
 
     <View
         android:id="@+id/line"
-        android:layout_width="401.02dp"
-        android:layout_height="0dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="4.99dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="61.95dp"
-        android:background="@drawable/line"
-        />
+        android:layout_width="401.02dp"
+        android:layout_height="2dp"
+        android:layout_marginTop="39dp"
+        android:background="#B9B9B9" />
 
-    <View
+    <RelativeLayout
         android:id="@+id/tiles"
         android:layout_width="190dp"
         android:layout_height="350dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="9dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="75dp"
+        android:layout_marginLeft="9dp"
+        android:layout_marginTop="49dp"
         android:background="@drawable/tiles"
-        android:elevation="4dp"
-        />
+        android:elevation="4dp">
 
-    <View
+        <View
+            android:id="@+id/shirt_image"
+            android:layout_width="190dp"
+            android:layout_height="255dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/black_tee" />
+
+        <TextView
+            android:id="@+id/black_tee"
+            android:layout_width="190dp"
+            android:layout_height="28dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="260dp"
+            android:gravity="center_vertical"
+            android:text="Black Tee"
+            android:textColor="@color/colorGeneralText"
+            android:textSize="24sp" />
+
+        <TextView
+            android:id="@+id/ford_perfor"
+            android:layout_width="190dp"
+            android:layout_height="28dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="290dp"
+            android:gravity="center_vertical"
+            android:text="Ford Performance"
+            android:textColor="#8D8D8D"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/price"
+            android:layout_width="106dp"
+            android:layout_height="28dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="320dp"
+            android:gravity="center_vertical"
+            android:text="$10.50"
+            android:textColor="@color/colorGeneralText"
+            android:textSize="20sp" />
+
+        <TextView
+            android:id="@+id/add_to_cart"
+            android:layout_width="106dp"
+            android:layout_height="28dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="101dp"
+            android:layout_marginTop="320dp"
+            android:gravity="center_vertical"
+            android:text="Add to cart"
+            android:textColor="#00D1FF"
+            android:textSize="16sp" />
+
+    </RelativeLayout>
+
+    <RelativeLayout
         android:id="@+id/tiles2"
         android:layout_width="190dp"
         android:layout_height="350dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="210dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="75dp"
+        android:layout_marginLeft="210dp"
+        android:layout_marginTop="49dp"
         android:background="@drawable/tiles"
-        android:elevation="4dp"
-        />
+        android:elevation="4dp">
 
-    <View
-        android:id="@+id/shirt_image"
-        android:layout_width="198dp"
-        android:layout_height="255dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="5dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="75dp"
-        android:background="@drawable/black_tee"
-        />
+        <View
+            android:id="@+id/shirt_image2"
+            android:layout_width="190dp"
+            android:layout_height="255dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/beanie" />
 
-    <View
-        android:id="@+id/shirt_image2"
-        android:layout_width="198dp"
-        android:layout_height="255dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="206dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="75dp"
-        android:background="@drawable/beanie"
-        />
+        <TextView
+            android:id="@+id/black_tee2"
+            android:layout_width="190dp"
+            android:layout_height="28dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="260dp"
+            android:gravity="center_vertical"
+            android:text="Black Tee"
+            android:textColor="@color/colorGeneralText"
+            android:textSize="24sp" />
 
-    <TextView
-        android:id="@+id/black_tee"
-        android:layout_width="190dp"
-        android:layout_height="28dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="9dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="338dp"
-        android:text="Black Tee"
-        android:textSize="24sp"
-        android:textColor="@color/colorGeneralText"
-        android:gravity="center_vertical"
-        />
+        <TextView
+            android:id="@+id/ford_perfor2"
+            android:layout_width="190dp"
+            android:layout_height="28dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="290dp"
+            android:gravity="center_vertical"
+            android:text="Ford Performance"
+            android:textColor="#8D8D8D"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/black_tee2"
-        android:layout_width="190dp"
-        android:layout_height="28dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="210dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="338dp"
-        android:text="Black Tee"
-        android:textSize="24sp"
-        android:textColor="@color/colorGeneralText"
-        android:gravity="center_vertical"
-        />
+        <TextView
+            android:id="@+id/price2"
+            android:layout_width="106dp"
+            android:layout_height="28dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="9dp"
+            android:layout_marginTop="320dp"
+            android:gravity="center_vertical"
+            android:text="$10.50"
+            android:textColor="@color/colorGeneralText"
+            android:textSize="20sp" />
 
-    <TextView
-        android:id="@+id/ford_perfor"
-        android:layout_width="190dp"
-        android:layout_height="28dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="9dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="363dp"
-        android:text="Ford Performance"
-        android:textSize="16sp"
-        android:textColor="#8D8D8D"
-        android:gravity="center_vertical"
-        />
+        <TextView
+            android:id="@+id/add_to_cart2"
+            android:layout_width="106dp"
+            android:layout_height="28dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginLeft="101dp"
+            android:layout_marginTop="320dp"
+            android:gravity="center_vertical"
+            android:text="Add to cart"
+            android:textColor="#00D1FF"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/ford_perfor2"
-        android:layout_width="190dp"
-        android:layout_height="28dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="210dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="363dp"
-        android:text="Ford Performance"
-        android:textSize="16sp"
-        android:textColor="#8D8D8D"
-        android:gravity="center_vertical"
-        />
+    </RelativeLayout>
 
-    <TextView
-        android:id="@+id/some_id"
-        android:layout_width="106dp"
-        android:layout_height="28dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="9dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="385dp"
-        android:text="$10.50"
-        android:textSize="20sp"
-        android:textColor="@color/colorGeneralText"
-        android:gravity="center_vertical"
-        />
 
-    <TextView
-        android:id="@+id/some_id2"
-        android:layout_width="106dp"
-        android:layout_height="28dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="210dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="385dp"
-        android:text="$10.50"
-        android:textSize="20sp"
-        android:textColor="@color/colorGeneralText"
-        android:gravity="center_vertical"
-        />
-
-    <TextView
-        android:id="@+id/add_to_cart"
-        android:layout_width="106dp"
-        android:layout_height="28dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="101dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="385dp"
-        android:text="Add to cart"
-        android:textSize="16sp"
-        android:textColor="#00D1FF"
-        android:gravity="center_vertical"
-        />
-
-    <TextView
-        android:id="@+id/add_to_cart2"
-        android:layout_width="106dp"
-        android:layout_height="28dp"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="302dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="387dp"
-        android:text="Add to cart"
-        android:textSize="16sp"
-        android:textColor="#00D1FF"
-        android:gravity="center_vertical"
-        />
 
     <TextView
         android:id="@+id/member_excl"
         android:layout_width="411dp"
-        android:layout_height="26dp"
+        android:layout_height="34dp"
         android:layout_alignParentLeft="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="442dp"
-        android:text="Member Exclusive"
-        android:textSize="30sp"
-        android:textColor="@color/colorGeneralText"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="416dp"
         android:gravity="center_vertical"
-        />
+        android:text="Member Exclusive"
+        android:textColor="@color/colorGeneralText"
+        android:textSize="30sp" />
 
     <View
         android:id="@+id/line2"
         android:layout_width="401.02dp"
-        android:layout_height="0dp"
+        android:layout_height="2dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="4.99dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="481.95dp"
-        android:background="@drawable/line"
-        />
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="456dp"
+        android:background="#B9B9B9" />
 
-    <View
-        android:id="@+id/rectangle_1"
+
+
+
+
+
+    <RelativeLayout
+        android:id="@+id/manage_box"
         android:layout_width="386dp"
         android:layout_height="43dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="13dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="634dp"
+        android:layout_marginLeft="13dp"
+        android:layout_marginTop="664dp"
         android:background="@drawable/rectangle_1"
-        android:elevation="4dp"
-        />
+        android:elevation="4dp">
 
     <TextView
         android:id="@+id/manage_merc"
         android:layout_width="386dp"
         android:layout_height="43dp"
         android:layout_alignParentLeft="true"
-        android:layout_marginLeft="14dp"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="634dp"
-        android:text="Manage Merchandise"
-        android:textSize="22sp"
-        android:textColor="#000000"
         android:gravity="center_horizontal|center_vertical"
-        />
+        android:text="Manage Merchandise"
+        android:textColor="#000000"
+        android:textSize="22sp" />
+    </RelativeLayout>
 
 </RelativeLayout>
