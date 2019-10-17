@@ -314,7 +314,7 @@
             android:layout_height="100dp"
             android:layout_marginTop="40dp"
             android:layout_marginLeft="30dp"
-            android:background="#778899">
+            android:background="#0E2D3F">
 
             <View
                 android:id="@+id/shirt_image"
@@ -361,7 +361,7 @@
             android:layout_height="100dp"
             android:layout_marginTop="40dp"
             android:layout_marginLeft="150dp"
-            android:background="#778899">
+            android:background="#0E2D3F">
 
             <View
                 android:id="@+id/shirt_image2"
@@ -408,7 +408,7 @@
             android:layout_height="100dp"
             android:layout_marginTop="40dp"
             android:layout_marginLeft="270dp"
-            android:background="#778899">
+            android:background="#0E2D3F">
 
             <View
                 android:id="@+id/shirt_image3"
@@ -455,7 +455,7 @@
             android:layout_height="100dp"
             android:layout_marginTop="160dp"
             android:layout_marginLeft="30dp"
-            android:background="#778899">
+            android:background="#0E2D3F">
 
             <TextView
                 android:id="@+id/add_text"
