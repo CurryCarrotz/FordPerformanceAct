@@ -325,7 +325,7 @@
         android:layout_height="match_parent"
         android:layout_below="@+id/a_to_z_filter"
         android:padding="8dp"
-        android:visibility="gone"/>
+        />
 
     <TextView
         android:id="@+id/no_member_text"
@@ -335,7 +335,8 @@
         android:text="No members available."
         android:textSize="20sp"
         android:textColor="@color/colorGeneralText"
-        android:gravity="center" />
+        android:gravity="center"
+        android:visibility="gone"/>
 
 
 </RelativeLayout>

@@ -108,17 +108,6 @@ public class EditMemberActivity extends AppCompatActivity {
 
         if (bundle != null) {
             memberId = bundle.getString("memberId");
-            /*usernameValue = bundle.getString("username");
-            firstNameValue = bundle.getString("firstName");
-            surnameValue = bundle.getString("surname");
-            emailValue = bundle.getString("email");
-            memberRoleValue = bundle.getString("memberRole");
-            membershipExpiryValue = bundle.getString("membershipExpiry");
-            memberSinceValue = bundle.getString("memberSince");
-            membershipRenewalPaidValue = bundle.getString("membershipRenewalPaid");
-            isAdminValue = bundle.getBoolean("isAdmin");
-            isActiveMemberValue = bundle.getBoolean("isActiveMember");*/
-
 
             // Set user details to each field
             setUserDetails(profileImage, backgroundProfileImage, username, firstName, surname, email, membershipRole, membershipExpiry, memberSince, membershipRenewalPaid, admin, activeMember);

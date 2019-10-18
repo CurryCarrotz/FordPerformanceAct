@@ -74,7 +74,7 @@
         android:layout_height="match_parent"
         android:layout_above="@+id/create_new_event"
         android:layout_below="@id/compactcalendar_view"
-        android:visibility="gone" />
+        />
 
     <TextView
         android:id="@+id/no_event_text"
@@ -85,7 +85,8 @@
         android:gravity="center"
         android:text="Events will be shown here when they are available."
         android:textColor="@color/colorGeneralText"
-        android:textSize="20sp" />
+        android:textSize="20sp"
+        android:visibility="gone"/>
 
 
     <Button
