@@ -37,6 +37,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/app_bar_layout"
+        android:layout_above="@+id/btn_edit_member_details"
         android:layout_alignParentStart="true"
         android:layout_marginTop="0dp">
 
@@ -90,9 +91,9 @@
                     android:focusable="false"
                     android:inputType="text"
                     android:padding="8dp"
+                    android:singleLine="true"
                     android:textColor="#9a9a9a"
-                    android:textSize="17sp"
-                    android:singleLine="true"/>
+                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/label_first_name"
@@ -113,9 +114,9 @@
                     android:focusable="false"
                     android:inputType="text"
                     android:padding="8dp"
+                    android:singleLine="true"
                     android:textColor="#9a9a9a"
-                    android:textSize="17sp"
-                    android:singleLine="true"/>
+                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/label_surname"
@@ -136,9 +137,9 @@
                     android:focusable="false"
                     android:inputType="text"
                     android:padding="8dp"
+                    android:singleLine="true"
                     android:textColor="#9a9a9a"
-                    android:textSize="17sp"
-                    android:singleLine="true"/>
+                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/label_email"
@@ -159,9 +160,9 @@
                     android:focusable="false"
                     android:inputType="textEmailAddress"
                     android:padding="8dp"
+                    android:singleLine="true"
                     android:textColor="#9a9a9a"
-                    android:textSize="17sp"
-                    android:singleLine="true"/>
+                    android:textSize="17sp" />
 
                 <TextView
                     android:id="@+id/label_membership_role"
@@ -173,32 +174,19 @@
                     android:textColor="@color/colorGeneralText"
                     android:textSize="16sp" />
 
-                <RelativeLayout
+
+                <EditText
+                    android:id="@+id/field_membership_role"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
-
-                    <EditText
-                        android:id="@+id/field_membership_role"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:background="@drawable/field_member_detail"
-                        android:focusable="false"
-                        android:inputType="text"
-                        android:padding="8dp"
-                        android:textColor="@color/colorGeneralText"
-                        android:textSize="17sp"
-                        android:singleLine="true"/>
-
-                    <ImageView
-                        android:id="@+id/edit_membership_role"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_alignEnd="@+id/field_membership_role"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/icon_edit_profile" />
-
-                </RelativeLayout>
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/field_member_detail"
+                    android:focusable="false"
+                    android:inputType="text"
+                    android:padding="8dp"
+                    android:singleLine="true"
+                    android:textColor="#9a9a9a"
+                    android:textSize="17sp" />
 
 
                 <TextView
@@ -211,32 +199,127 @@
                     android:textColor="@color/colorGeneralText"
                     android:textSize="16sp" />
 
-                <RelativeLayout
+
+                <EditText
+                    android:id="@+id/field_membership_expiry"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/field_member_detail"
+                    android:focusable="false"
+                    android:inputType="date"
+                    android:padding="8dp"
+                    android:singleLine="true"
+                    android:textColor="#9a9a9a"
+                    android:textSize="17sp" />
 
-                    <EditText
-                        android:id="@+id/field_membership_expiry"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="8dp"
-                        android:background="@drawable/field_member_detail"
-                        android:focusable="false"
-                        android:inputType="date"
-                        android:padding="8dp"
-                        android:textColor="@color/colorGeneralText"
-                        android:textSize="17sp"
-                        android:singleLine="true"/>
+                <TextView
+                    android:id="@+id/label_member_since"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:labelFor="@+id/field_membership_expiry"
+                    android:text="Member since"
+                    android:textColor="@color/colorGeneralText"
+                    android:textSize="16sp" />
 
-                    <ImageView
-                        android:id="@+id/edit_membership_expiry"
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_alignEnd="@+id/field_membership_expiry"
-                        android:layout_margin="5dp"
-                        android:background="@drawable/icon_edit_profile" />
-                </RelativeLayout>
+
+                <EditText
+                    android:id="@+id/field_member_since"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/field_member_detail"
+                    android:focusable="false"
+                    android:inputType="date"
+                    android:padding="8dp"
+                    android:singleLine="true"
+                    android:textColor="#9a9a9a"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/label_membership_renewal_paid"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:labelFor="@+id/field_membership_expiry"
+                    android:text="Membership renewal paid"
+                    android:textColor="@color/colorGeneralText"
+                    android:textSize="16sp" />
+
+
+                <EditText
+                    android:id="@+id/field_membership_renewal_paid"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/field_member_detail"
+                    android:focusable="false"
+                    android:inputType="date"
+                    android:padding="8dp"
+                    android:singleLine="true"
+                    android:textColor="#9a9a9a"
+                    android:textSize="17sp" />
+
+                <TextView
+                android:id="@+id/label_admin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="8dp"
+                android:labelFor="@+id/field_membership_expiry"
+                android:text="Admin"
+                android:textColor="@color/colorGeneralText"
+                android:textSize="16sp" />
+
+
+                <EditText
+                    android:id="@+id/field_admin"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/field_member_detail"
+                    android:focusable="false"
+                    android:inputType="date"
+                    android:padding="8dp"
+                    android:singleLine="true"
+                    android:textColor="#9a9a9a"
+                    android:textSize="17sp" />
+
+                <TextView
+                    android:id="@+id/label_active_member"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:labelFor="@+id/field_membership_expiry"
+                    android:text="Active member"
+                    android:textColor="@color/colorGeneralText"
+                    android:textSize="16sp" />
+
+
+                <EditText
+                    android:id="@+id/field_active_member"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="8dp"
+                    android:background="@drawable/field_member_detail"
+                    android:focusable="false"
+                    android:inputType="date"
+                    android:padding="8dp"
+                    android:singleLine="true"
+                    android:textColor="#9a9a9a"
+                    android:textSize="17sp" />
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>
+
+    <Button
+        android:id="@+id/btn_edit_member_details"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Edit member details"
+        android:textColor="@color/colorGeneralText"
+        android:layout_alignParentBottom="true"
+        android:background="#D900D1FF"
+        android:layout_margin="13dp"
+        android:elevation="5dp"/>
 </RelativeLayout>

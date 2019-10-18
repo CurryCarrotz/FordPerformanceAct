@@ -1,22 +1,28 @@
 package com.karimun.fordperformanceact.Models;
 
+import android.net.Uri;
+
 public class Member {
 
-    String memberId, username, email, memberRole, membershipExpiry, address, firstName, surname, mobilePhone, postcode, spouseName, state, suburb;
-    boolean isAdmin;
+    String memberId, username, email, memberRole, membershipExpiry, memberSince, membershipRenewalPaid
+            , address, firstName, surname, mobilePhone, postcode
+            , spouseName, state, suburb, imageUrl;
+    boolean isAdmin, isActiveMember;
 
     Member() {}
 
     public Member(String memberId, String username, String email, String memberRole
-            , String membershipExpiry, String address, String firstName, String surname
+            , String membershipExpiry, String memberSince, String membershipRenewalPaid, String address, String firstName, String surname
             , String mobilePhone, String postcode, String spouseName, String state
-            , String suburb, boolean isAdmin) {
+            , String suburb, String imageUrl, boolean isAdmin, boolean isActiveMember) {
 
         this.memberId = memberId;
         this.username = username;
         this.email = email;
         this.memberRole = memberRole;
         this.membershipExpiry = membershipExpiry;
+        this.memberSince = memberSince;
+        this.membershipRenewalPaid = membershipRenewalPaid;
         this.address = address;
         this.firstName = firstName;
         this.surname = surname;
@@ -25,7 +31,9 @@ public class Member {
         this.spouseName = spouseName;
         this.state = state;
         this.suburb = suburb;
+        this.imageUrl = imageUrl;
         this.isAdmin = isAdmin;
+        this.isActiveMember = isActiveMember;
     }
 
     public String getMemberId() {
@@ -116,6 +124,14 @@ public class Member {
         this.email = email;
     }
 
+    public String getImageUrl() {
+        return imageUrl;
+    }
+
+    public void setImageUrl(String imageUrl) {
+        this.imageUrl = imageUrl;
+    }
+
     public boolean isAdmin() {
         return isAdmin;
     }
@@ -138,5 +154,29 @@ public class Member {
 
     public void setMembershipExpiry(String membershipExpiry) {
         this.membershipExpiry = membershipExpiry;
+    }
+
+    public String getMemberSince() {
+        return memberSince;
+    }
+
+    public void setMemberSince(String memberSince) {
+        this.memberSince = memberSince;
+    }
+
+    public String getMembershipRenewalPaid() {
+        return membershipRenewalPaid;
+    }
+
+    public void setMembershipRenewalPaid(String membershipRenewalPaid) {
+        this.membershipRenewalPaid = membershipRenewalPaid;
+    }
+
+    public boolean isActiveMember() {
+        return isActiveMember;
+    }
+
+    public void setActiveMember(boolean activeMember) {
+        isActiveMember = activeMember;
     }
 }

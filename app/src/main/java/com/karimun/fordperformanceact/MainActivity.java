@@ -1,5 +1,8 @@
 package com.karimun.fordperformanceact;
 
+import android.content.Context;
+import android.net.Uri;
+import android.support.design.widget.AppBarLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.content.Intent;
@@ -13,11 +16,13 @@ import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.view.View;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
+import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.firebase.auth.FirebaseAuth;
 import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
@@ -31,9 +36,15 @@ import com.karimun.fordperformanceact.Fragments.HomeFragment;
 import com.karimun.fordperformanceact.Fragments.ManageMembersFragment;
 import com.karimun.fordperformanceact.Models.Member;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class MainActivity extends AppCompatActivity {
 
+    public static AppBarLayout appBarLayout;
     public static TextView mainAppTitle;
     public static LinearLayout viewWrapper;
 
@@ -45,31 +56,46 @@ public class MainActivity extends AppCompatActivity {
 
     FirebaseUser user;
 
+    public static FrameLayout fragmentContainer;
+
+    public static List<Fragment> openedNotInBackStackFragments;
+
+    public static boolean isCurrentFragmentHome = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        appBarLayout = findViewById(R.id.app_bar_layout);
         Toolbar toolbar = findViewById(R.id.home_toolbar);
         mainAppTitle = findViewById(R.id.main_app_title);
         drawerLayout = findViewById(R.id.drawer_layout);
         navigationView = findViewById(R.id.navigation_view);
+        final CircleImageView profileImage = navigationView.getHeaderView(0).findViewById(R.id.profile_image);
         final TextView username = navigationView.getHeaderView(0).findViewById(R.id.username);
         final TextView email = navigationView.getHeaderView(0).findViewById(R.id.email_address);
+        LinearLayout editProfileWrapper = navigationView.getHeaderView(0).findViewById(R.id.edit_profile_wrapper);
         Button btnSignout = navigationView.getHeaderView(0).findViewById(R.id.button_signout);
+        fragmentContainer = findViewById(R.id.fragment_container);
         viewWrapper = findViewById(R.id.view_wrapper);
+
+        openedNotInBackStackFragments = new ArrayList<>();
 
         viewWrapper.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
                 if (!switchedToEventsCalendar2) {
-                    changeFragment(new EventCalendarFragment2());
+                    EventCalendarFragment2 eventCalendarFragment2 = new EventCalendarFragment2();
+                    openedNotInBackStackFragments.add(eventCalendarFragment2);
+                    changeFragment(eventCalendarFragment2);
                     switchedToEventsCalendar2 = true;
-                }
-                else {
-                    changeFragment(new EventCalendarFragment());
+                } else {
+                    EventCalendarFragment eventCalendarFragment = new EventCalendarFragment();
+                    openedNotInBackStackFragments.add(eventCalendarFragment);
+                    changeFragment(eventCalendarFragment);
                     switchedToEventsCalendar2 = false;
                 }
             }
@@ -82,7 +108,15 @@ public class MainActivity extends AppCompatActivity {
 
 
         toggle = new ActionBarDrawerToggle(this, drawerLayout,
-                R.string.open_navigation, R.string.close_navigation);
+                R.string.open_navigation, R.string.close_navigation) {
+
+            @Override
+            public void onDrawerOpened(View drawerView) {
+                super.onDrawerOpened(drawerView);
+
+                hideSoftKeyboard(drawerView);
+            }
+        };
 
 
         drawerLayout.addDrawerListener(toggle);
@@ -99,13 +133,20 @@ public class MainActivity extends AppCompatActivity {
                 Member member = dataSnapshot.getValue(Member.class);
 
                 if (member != null) {
+
+                    if (member.getImageUrl().equals("default")) {
+
+                        profileImage.setImageResource(R.drawable.image_default);
+                    } else {
+                        Glide.with(getApplicationContext()).load(member.getImageUrl()).into(profileImage);
+                    }
+
                     username.setText(member.getUsername());
                     email.setText(member.getEmail());
 
                     if (member.isAdmin()) {
                         navigationView.getMenu().getItem(8).setVisible(true);
-                    }
-                    else {
+                    } else {
                         navigationView.getMenu().getItem(8).setVisible(false);
                     }
                 }
@@ -114,6 +155,14 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void onCancelled(@NonNull DatabaseError databaseError) {
 
+            }
+        });
+
+        // If edit profile option in the side navigation bar is clicked
+        editProfileWrapper.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(MainActivity.this, EditProfileActivity.class));
             }
         });
 
@@ -127,21 +176,20 @@ public class MainActivity extends AppCompatActivity {
 
                 switch (itemId) {
                     case R.id.nav_home:
-                        changeFragment(new HomeFragment());
                         drawerLayout.closeDrawer(GravityCompat.START);
-                        mainAppTitle.setText("      Home");
                         viewWrapper.setVisibility(View.INVISIBLE);
-
+                        changeFragmentBackToHome();
                         break;
 
                     case R.id.nav_calendar:
-                        changeFragment(new EventCalendarFragment());
                         drawerLayout.closeDrawer(GravityCompat.START);
                         mainAppTitle.setText("Events Calendar");
                         viewWrapper.setVisibility(View.VISIBLE);
-
                         switchedToEventsCalendar2 = false;
 
+                        EventCalendarFragment eventCalendarFragment = new EventCalendarFragment();
+                        openedNotInBackStackFragments.add(eventCalendarFragment);
+                        changeFragment(eventCalendarFragment);
                         break;
 
                     case R.id.nav_members_cars:
@@ -163,11 +211,13 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.nav_manage_members:
-                        changeFragment(new ManageMembersFragment());
                         drawerLayout.closeDrawer(GravityCompat.START);
                         mainAppTitle.setText("Manage Members");
                         viewWrapper.setVisibility(View.INVISIBLE);
 
+                        ManageMembersFragment manageMembersFragment = new ManageMembersFragment();
+                        openedNotInBackStackFragments.add(manageMembersFragment);
+                        changeFragment(manageMembersFragment);
                         break;
 
                     case R.id.nav_admin_log:
@@ -182,7 +232,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        Toast.makeText(MainActivity.this, "This will direct you to instagram", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.instagram.com/fordperformanceclubofact/")));
                     }
                 });
 
@@ -191,7 +241,7 @@ public class MainActivity extends AppCompatActivity {
                     @Override
                     public void onClick(View v) {
 
-                        Toast.makeText(MainActivity.this, "This will direct you to facebook", Toast.LENGTH_SHORT).show();
+                        startActivity(new Intent(Intent.ACTION_VIEW, Uri.parse("https://www.facebook.com/fordperformanceact/")));
                     }
                 });
 
@@ -213,6 +263,19 @@ public class MainActivity extends AppCompatActivity {
             FragmentTransaction fragmentTransaction = getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.fragment_container, newFragment)
                     .commit();
+
+            isCurrentFragmentHome = false;
+        }
+    }
+
+    private void changeFragmentBackToHome() {
+        if (getSupportFragmentManager() != null) {
+
+            for (Fragment fragment : openedNotInBackStackFragments) {
+                getSupportFragmentManager().beginTransaction().remove(fragment).commit();
+            }
+            getSupportFragmentManager().popBackStack();
+            isCurrentFragmentHome = true;
         }
     }
 
@@ -222,9 +285,30 @@ public class MainActivity extends AppCompatActivity {
         if (toggle.onOptionsItemSelected(item)) {
 
             return true;
-        }
-        else {
+        } else {
             return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void hideSoftKeyboard(View v) {
+        InputMethodManager imm = (InputMethodManager) MainActivity.this.getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.hideSoftInputFromWindow(v.getWindowToken(), 0);
+    }
+
+    @Override
+    public void onBackPressed() {
+
+        if (drawerLayout.isDrawerOpen(GravityCompat.START))
+            drawerLayout.closeDrawer(GravityCompat.START);
+        else
+            if (!isCurrentFragmentHome) {
+                changeFragmentBackToHome();
+            }
+            else {
+                Intent intent = new Intent(Intent.ACTION_MAIN);
+                intent.addCategory(Intent.CATEGORY_HOME);
+                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                startActivity(intent);
+            }
     }
 }

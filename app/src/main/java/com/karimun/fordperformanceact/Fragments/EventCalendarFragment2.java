@@ -10,6 +10,7 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -25,6 +26,8 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,7 +35,9 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.karimun.fordperformanceact.Adapters.EventAdapter;
 import com.karimun.fordperformanceact.Adapters.TimePickerAdapter;
+import com.karimun.fordperformanceact.Functionalities.SwipeToDeleteCallback;
 import com.karimun.fordperformanceact.MainActivity;
+import com.karimun.fordperformanceact.Models.Member;
 import com.karimun.fordperformanceact.Models.OurEvent;
 import com.karimun.fordperformanceact.R;
 
@@ -61,6 +66,8 @@ public class EventCalendarFragment2 extends Fragment {
 
     String dayOfWeekStart;
 
+    FirebaseUser fUser;
+
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -74,8 +81,11 @@ public class EventCalendarFragment2 extends Fragment {
 
         MainActivity.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         MainActivity.toggle.setDrawerIndicatorEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity)getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon_hamburger);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_hamburger);
+        MainActivity.appBarLayout.setVisibility(View.VISIBLE);
+
+        fUser = FirebaseAuth.getInstance().getCurrentUser();
 
         events = new ArrayList<>();
 
@@ -85,40 +95,7 @@ public class EventCalendarFragment2 extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Fetch event data from database and add it to event list
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Event");
-        reference.addValueEventListener(new ValueEventListener() {
-            @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                events.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
-                    OurEvent ourEvent = snapshot.getValue(OurEvent.class);
-                    events.add(ourEvent);
-
-                    // Declare the event adapter object
-                    EventAdapter eventAdapter = new EventAdapter(getContext(), events, true);
-
-                    // Set event adapter to recyclerview
-                    recyclerView.setAdapter(eventAdapter);
-
-                    if (events.size() > 0) {
-                        noEventText.setVisibility(View.GONE);
-                        recyclerView.setVisibility(View.VISIBLE);
-
-                    }
-                    else {
-                        noEventText.setVisibility(View.VISIBLE);
-                        recyclerView.setVisibility(View.GONE);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
-            }
-        });
+        listAllEvents(recyclerView, noEventText);
 
         ImageView addEvent = view.findViewById(R.id.add_event);
         addEvent.setOnClickListener(new View.OnClickListener() {
@@ -249,6 +226,7 @@ public class EventCalendarFragment2 extends Fragment {
                                             hashMap.put("timeEnd", timeEndField.getText().toString());
                                             hashMap.put("location", eventLocationField.getText().toString());
                                             hashMap.put("dayOfWeekStart", dayOfWeekStart);
+                                            hashMap.put("isEventArchived", false);
 
                                             if (sendNotificationCheckBox.isChecked()) {
                                                 hashMap.put("sendNotification", true);
@@ -260,8 +238,7 @@ public class EventCalendarFragment2 extends Fragment {
 
                                             Toast.makeText(getContext(), "Event has been successfully created.", Toast.LENGTH_SHORT).show();
                                             createEventWindow.dismiss();
-                                        }
-                                        else if (dateStartField.getText().toString().equals(dateEndField.getText().toString())) {
+                                        } else if (dateStartField.getText().toString().equals(dateEndField.getText().toString())) {
 
                                             if (convertStringToDateForTime(timeStartField.getText().toString())
                                                     .compareTo(convertStringToDateForTime(timeEndField.getText().toString())) <= 0) {
@@ -274,6 +251,7 @@ public class EventCalendarFragment2 extends Fragment {
                                                 hashMap.put("timeEnd", timeEndField.getText().toString());
                                                 hashMap.put("location", eventLocationField.getText().toString());
                                                 hashMap.put("dayOfWeekStart", dayOfWeekStart);
+                                                hashMap.put("isEventArchived", false);
 
                                                 if (sendNotificationCheckBox.isChecked()) {
                                                     hashMap.put("sendNotification", true);
@@ -285,12 +263,10 @@ public class EventCalendarFragment2 extends Fragment {
 
                                                 Toast.makeText(getContext(), "Event has been successfully created.", Toast.LENGTH_SHORT).show();
                                                 createEventWindow.dismiss();
-                                            }
-                                            else {
+                                            } else {
                                                 Toast.makeText(getContext(), "Must pick time after start time", Toast.LENGTH_SHORT).show();
                                             }
-                                        }
-                                        else if (dateStartField.getText() != null && dateEndField.getText() != null && convertStringToDateForDate(dateStartField.getText().toString())
+                                        } else if (dateStartField.getText() != null && dateEndField.getText() != null && convertStringToDateForDate(dateStartField.getText().toString())
                                                 .compareTo(convertStringToDateForDate(dateEndField.getText().toString())) < 0) {
 
                                             hashMap.put("eventId", reference.getKey());
@@ -301,6 +277,7 @@ public class EventCalendarFragment2 extends Fragment {
                                             hashMap.put("timeEnd", timeEndField.getText().toString());
                                             hashMap.put("location", eventLocationField.getText().toString());
                                             hashMap.put("dayOfWeekStart", dayOfWeekStart);
+                                            hashMap.put("isEventArchived", false);
 
                                             if (sendNotificationCheckBox.isChecked()) {
                                                 hashMap.put("sendNotification", true);
@@ -312,12 +289,10 @@ public class EventCalendarFragment2 extends Fragment {
 
                                             Toast.makeText(getContext(), "Event has been successfully created.", Toast.LENGTH_SHORT).show();
                                             createEventWindow.dismiss();
-                                        }
-                                        else {
+                                        } else {
                                             Toast.makeText(getContext(), "Start date must not occur after end date.", Toast.LENGTH_SHORT).show();
                                         }
-                                    }
-                                    else {
+                                    } else {
 
                                         Toast.makeText(getContext(), "Title, Start date, and Location must not be empty.", Toast.LENGTH_LONG).show();
                                     }
@@ -394,8 +369,7 @@ public class EventCalendarFragment2 extends Fragment {
 
             if (dateStartField.getText().length() > 0 && dateStartField.getText() != null) {
                 dateEndDialog.getDatePicker().setMinDate(calendarStart.getTimeInMillis());
-            }
-            else {
+            } else {
                 dateEndDialog.getDatePicker().setMinDate(System.currentTimeMillis());
             }
 
@@ -409,8 +383,7 @@ public class EventCalendarFragment2 extends Fragment {
             Date parsedFormerDate = former.parse(formerDateFormat);
             SimpleDateFormat current = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
             return current.format(parsedFormerDate);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             Log.d("PARSE EXCEPTION", e.getMessage());
         }
         return "";
@@ -420,8 +393,7 @@ public class EventCalendarFragment2 extends Fragment {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
             return dateFormat.parse(str);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             Log.d("PARSE EXCEPTION", e.getMessage());
         }
         return null;
@@ -431,11 +403,69 @@ public class EventCalendarFragment2 extends Fragment {
         try {
             SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
             return timeFormat.parse(str);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             Log.d("PARSE EXCEPTION", e.getMessage());
         }
         return null;
+    }
+
+    public void listAllEvents(final RecyclerView recyclerView, final TextView noEventText) {
+        // Fetch event data from database and add it to event list
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Event");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                events.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    OurEvent ourEvent = snapshot.getValue(OurEvent.class);
+
+
+                    if (ourEvent != null && !ourEvent.isEventArchived()) {
+                        events.add(ourEvent);
+
+                        // Declare the event adapter object
+                        final EventAdapter eventAdapter = new EventAdapter(getContext(), events, true);
+
+                        // Set event adapter to recyclerview
+                        recyclerView.setAdapter(eventAdapter);
+
+                        // Set event lists to be deletable if member is admin
+                        DatabaseReference memberReference = FirebaseDatabase.getInstance().getReference("Member").child(fUser.getUid());
+                        memberReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                Member member = dataSnapshot.getValue(Member.class);
+
+                                if (member != null && member.isAdmin()) {
+                                    SwipeToDeleteCallback swipeToDeleteCallback = new SwipeToDeleteCallback(eventAdapter);
+                                    ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeToDeleteCallback);
+                                    itemTouchHelper.attachToRecyclerView(recyclerView);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                }
+
+                if (events.size() > 0) {
+                    noEventText.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                } else {
+                    noEventText.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override
@@ -443,6 +473,6 @@ public class EventCalendarFragment2 extends Fragment {
         super.onPause();
 
         if (createEventWindow != null)
-        createEventWindow.dismiss();
+            createEventWindow.dismiss();
     }
 }

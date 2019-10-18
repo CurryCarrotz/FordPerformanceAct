@@ -1,6 +1,7 @@
 package com.karimun.fordperformanceact.Fragments;
 
 import android.app.DatePickerDialog;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -10,21 +11,26 @@ import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.helper.ItemTouchHelper;
 import android.text.TextUtils;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.CalendarView;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.sundeepk.compactcalendarview.CompactCalendarView;
+import com.github.sundeepk.compactcalendarview.domain.Event;
+import com.google.firebase.auth.FirebaseAuth;
+import com.google.firebase.auth.FirebaseUser;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -33,8 +39,10 @@ import com.google.firebase.database.ValueEventListener;
 import com.karimun.fordperformanceact.Adapters.EventAdapter;
 import com.karimun.fordperformanceact.Adapters.TimePickerAdapter;
 import com.karimun.fordperformanceact.MainActivity;
+import com.karimun.fordperformanceact.Models.Member;
 import com.karimun.fordperformanceact.Models.OurEvent;
 import com.karimun.fordperformanceact.R;
+import com.karimun.fordperformanceact.Functionalities.SwipeToDeleteCallback;
 
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -46,7 +54,6 @@ import java.util.List;
 import java.util.Locale;
 
 
-
 public class EventCalendarFragment extends Fragment {
 
     AlertDialog createEventWindow;
@@ -55,6 +62,9 @@ public class EventCalendarFragment extends Fragment {
     public static EditText timeEndField;
     EditText dateEndField;
     public static boolean isTimeStartField = false;
+
+    TextView labelMonthAndYear;
+    ImageView calendarPrevious, calendarNext;
 
     Calendar calendarStart;
     Calendar calendarEnd;
@@ -66,6 +76,9 @@ public class EventCalendarFragment extends Fragment {
     String dayOfWeekStart;
 
     List<OurEvent> events;
+    List<Event> highlightedDateEvents;
+
+    FirebaseUser fUser;
 
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
@@ -81,8 +94,12 @@ public class EventCalendarFragment extends Fragment {
         MainActivity.drawerLayout.setDrawerLockMode(DrawerLayout.LOCK_MODE_UNLOCKED);
         MainActivity.toggle.setDrawerIndicatorEnabled(true);
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon_hamburger);
+        ((AppCompatActivity) getActivity()).getSupportActionBar().setHomeAsUpIndicator(R.drawable.ic_hamburger);
+        MainActivity.appBarLayout.setVisibility(View.VISIBLE);
 
+        fUser = FirebaseAuth.getInstance().getCurrentUser();
+
+        highlightedDateEvents = new ArrayList<>();
         events = new ArrayList<>();
 
         final TextView noEventText = view.findViewById(R.id.no_event_text);
@@ -91,45 +108,37 @@ public class EventCalendarFragment extends Fragment {
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
 
-        // Fetch event data from database and add it to event list
-        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Event");
-        reference.addValueEventListener(new ValueEventListener() {
+
+        // Declare and set calendar view including month and year labels
+        labelMonthAndYear = view.findViewById(R.id.label_month_and_year);
+        calendarPrevious = view.findViewById(R.id.calendar_previous);
+        calendarNext = view.findViewById(R.id.calendar_next);
+        final CompactCalendarView calendarView = view.findViewById(R.id.compactcalendar_view);
+        calendarView.setUseThreeLetterAbbreviation(true);
+        setEventDateOnCalendar(calendarView);
+
+        // Set current month and year
+        SimpleDateFormat monthAndYearFormat = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
+        labelMonthAndYear.setText(monthAndYearFormat.format(calendarView.getFirstDayOfCurrentMonth()));
+
+        // Give previous button a functionality to go back to previous month or year
+        calendarPrevious.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
-                events.clear();
-                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
-
-                    OurEvent ourEvent = snapshot.getValue(OurEvent.class);
-                    events.add(ourEvent);
-
-                    // Declare the event adapter object
-                    EventAdapter eventAdapter = new EventAdapter(getContext(), events, false);
-
-                    // Set event adapter to recyclerview
-                    recyclerView.setAdapter(eventAdapter);
-
-                    // If there is one or more events, recyclerView is visible. If not, there will be text indicating there is no event
-                    if (events.size() > 0) {
-                        noEventText.setVisibility(View.GONE);
-                        recyclerView.setVisibility(View.VISIBLE);
-                    }
-                    else {
-                        noEventText.setVisibility(View.VISIBLE);
-                        recyclerView.setVisibility(View.GONE);
-                    }
-                }
-            }
-
-            @Override
-            public void onCancelled(@NonNull DatabaseError databaseError) {
-
+            public void onClick(View v) {
+                calendarView.scrollLeft();
             }
         });
 
+        // Give next button a functionality to go to next month or year
+        calendarNext.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                calendarView.scrollRight();
+            }
+        });
 
+        listAllEvents(recyclerView, noEventText);
 
-        CalendarView calendarView = view.findViewById(R.id.calendar_view);
-        
         // When this button is clicked, there will be a pop up dialog asking for event details
         Button btnCreateNewEvent = view.findViewById(R.id.create_new_event);
         btnCreateNewEvent.setOnClickListener(new View.OnClickListener() {
@@ -268,6 +277,7 @@ public class EventCalendarFragment extends Fragment {
                                             hashMap.put("timeEnd", timeEndField.getText().toString());
                                             hashMap.put("location", eventLocationField.getText().toString());
                                             hashMap.put("dayOfWeekStart", dayOfWeekStart);
+                                            hashMap.put("isEventArchived", false);
 
                                             if (sendNotificationCheckBox.isChecked()) {
                                                 hashMap.put("sendNotification", true);
@@ -279,8 +289,7 @@ public class EventCalendarFragment extends Fragment {
 
                                             Toast.makeText(getContext(), "Event has been successfully created.", Toast.LENGTH_SHORT).show();
                                             createEventWindow.dismiss();
-                                        }
-                                        else if (dateStartField.getText().toString().equals(dateEndField.getText().toString())) {
+                                        } else if (dateStartField.getText().toString().equals(dateEndField.getText().toString())) {
 
                                             if (convertStringToDateForTime(timeStartField.getText().toString())
                                                     .compareTo(convertStringToDateForTime(timeEndField.getText().toString())) <= 0) {
@@ -293,6 +302,7 @@ public class EventCalendarFragment extends Fragment {
                                                 hashMap.put("timeEnd", timeEndField.getText().toString());
                                                 hashMap.put("location", eventLocationField.getText().toString());
                                                 hashMap.put("dayOfWeekStart", dayOfWeekStart);
+                                                hashMap.put("isEventArchived", false);
 
                                                 if (sendNotificationCheckBox.isChecked()) {
                                                     hashMap.put("sendNotification", true);
@@ -304,13 +314,11 @@ public class EventCalendarFragment extends Fragment {
 
                                                 Toast.makeText(getContext(), "Event has been successfully created.", Toast.LENGTH_SHORT).show();
                                                 createEventWindow.dismiss();
-                                            }
-                                            else {
+                                            } else {
                                                 Toast.makeText(getContext(), "Must pick time after start time", Toast.LENGTH_SHORT).show();
                                             }
-                                        }
-                                        else if (convertStringToDateForDate(dateStartField.getText().toString())
-                                                    .compareTo(convertStringToDateForDate(dateEndField.getText().toString())) < 0) {
+                                        } else if (convertStringToDateForDate(dateStartField.getText().toString())
+                                                .compareTo(convertStringToDateForDate(dateEndField.getText().toString())) < 0) {
 
                                             hashMap.put("eventId", reference.getKey());
                                             hashMap.put("title", eventTitleField.getText().toString());
@@ -320,6 +328,7 @@ public class EventCalendarFragment extends Fragment {
                                             hashMap.put("timeEnd", timeEndField.getText().toString());
                                             hashMap.put("location", eventLocationField.getText().toString());
                                             hashMap.put("dayOfWeekStart", dayOfWeekStart);
+                                            hashMap.put("isEventArchived", false);
 
                                             if (sendNotificationCheckBox.isChecked()) {
                                                 hashMap.put("sendNotification", true);
@@ -331,12 +340,10 @@ public class EventCalendarFragment extends Fragment {
 
                                             Toast.makeText(getContext(), "Event has been successfully created.", Toast.LENGTH_SHORT).show();
                                             createEventWindow.dismiss();
-                                        }
-                                        else {
+                                        } else {
                                             Toast.makeText(getContext(), "Start date must not occur after end date.", Toast.LENGTH_SHORT).show();
                                         }
-                                    }
-                                    else {
+                                    } else {
 
                                         Toast.makeText(getContext(), "Title, Start date, and Location must not be empty.", Toast.LENGTH_LONG).show();
                                     }
@@ -419,8 +426,7 @@ public class EventCalendarFragment extends Fragment {
 
             if (dateStartField.getText().length() > 0 && dateStartField.getText() != null) {
                 dateEndDialog.getDatePicker().setMinDate(calendarStart.getTimeInMillis());
-            }
-            else {
+            } else {
                 dateEndDialog.getDatePicker().setMinDate(System.currentTimeMillis());
             }
 
@@ -435,8 +441,7 @@ public class EventCalendarFragment extends Fragment {
             Date parsedFormerDate = former.parse(formerDateFormat);
             SimpleDateFormat current = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
             return current.format(parsedFormerDate);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             Log.d("PARSE EXCEPTION", e.getMessage());
         }
         return "";
@@ -447,8 +452,7 @@ public class EventCalendarFragment extends Fragment {
         try {
             SimpleDateFormat dateFormat = new SimpleDateFormat("MMM dd, yyyy", Locale.getDefault());
             return dateFormat.parse(str);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             Log.d("PARSE EXCEPTION", e.getMessage());
         }
         return null;
@@ -459,11 +463,117 @@ public class EventCalendarFragment extends Fragment {
         try {
             SimpleDateFormat timeFormat = new SimpleDateFormat("hh:mm a", Locale.getDefault());
             return timeFormat.parse(str);
-        }
-        catch (ParseException e) {
+        } catch (ParseException e) {
             Log.d("PARSE EXCEPTION", e.getMessage());
         }
         return null;
+    }
+
+    // Highlight event dates on calendar
+    private void setEventDateOnCalendar(final CompactCalendarView ccv) {
+
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Event");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    final OurEvent ourEvent = snapshot.getValue(OurEvent.class);
+
+                    try {
+                        if (ourEvent != null) {
+                            SimpleDateFormat dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
+                            Date eventDate = dateFormat.parse(ourEvent.getDateStart());
+                            Event event = new Event(Color.parseColor("#00D1FF"), eventDate.getTime(), ourEvent.getTitle());
+                            highlightedDateEvents.add(event);
+                        }
+                    } catch (ParseException e) {
+                        Log.d("PARSE EXCEPTION", e.getMessage());
+                    }
+                }
+                ccv.addEvents(highlightedDateEvents);
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+
+        ccv.setListener(new CompactCalendarView.CompactCalendarViewListener() {
+            @Override
+            public void onDayClick(Date dateClicked) {
+
+            }
+
+            @Override
+            public void onMonthScroll(Date firstDayOfNewMonth) {
+
+                SimpleDateFormat monthAndYearFormat = new SimpleDateFormat("MMMM yyyy", Locale.getDefault());
+                labelMonthAndYear.setText(monthAndYearFormat.format(firstDayOfNewMonth));
+            }
+        });
+    }
+
+    // List all events
+    public void listAllEvents(final RecyclerView recyclerView, final TextView noEventText) {
+        // Fetch event data from database and add it to event list
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Event");
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                events.clear();
+                for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
+
+                    OurEvent ourEvent = snapshot.getValue(OurEvent.class);
+
+                    if (ourEvent != null && !ourEvent.isEventArchived()) {
+                        events.add(ourEvent);
+
+
+                        // Declare the event adapter object
+                        final EventAdapter eventAdapter = new EventAdapter(getContext(), events, false);
+
+                        // Set event adapter to recyclerview
+                        recyclerView.setAdapter(eventAdapter);
+
+                        // Set event lists to be deletable if member is admin
+                        DatabaseReference memberReference = FirebaseDatabase.getInstance().getReference("Member").child(fUser.getUid());
+                        memberReference.addValueEventListener(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                                Member member = dataSnapshot.getValue(Member.class);
+
+                                if (member != null && member.isAdmin()) {
+                                    SwipeToDeleteCallback swipeToDeleteCallback = new SwipeToDeleteCallback(eventAdapter);
+                                    ItemTouchHelper itemTouchHelper = new ItemTouchHelper(swipeToDeleteCallback);
+                                    itemTouchHelper.attachToRecyclerView(recyclerView);
+                                }
+                            }
+
+                            @Override
+                            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                            }
+                        });
+                    }
+                }
+                // If there is one or more events, recyclerView is visible. If not, there will be text indicating there is no event
+                if (events.size() > 0) {
+                    noEventText.setVisibility(View.GONE);
+                    recyclerView.setVisibility(View.VISIBLE);
+                } else {
+                    noEventText.setVisibility(View.VISIBLE);
+                    recyclerView.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
     }
 
     @Override

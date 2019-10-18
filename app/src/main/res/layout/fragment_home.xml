@@ -1,249 +1,520 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
-    android:padding="8dp"
-    xmlns:app="http://schemas.android.com/apk/res-auto">
+    android:background="@drawable/image_background">
 
-
-    <android.support.v7.widget.GridLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:columnCount="1"
-        app:rowCount="3">
+        android:layout_height="wrap_content">
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/item_events_calendar"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="#55BBB7B7"
-            app:cardCornerRadius="20dp"
-            app:layout_columnWeight="1"
-            app:layout_rowWeight="1">
+        <RelativeLayout
+            android:id="@+id/main_details_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:gravity="center_horizontal">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/profile_image"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_centerVertical="true"
+                android:layout_marginEnd="20dp"
+                android:layout_marginBottom="20dp"
+                android:src="@drawable/image_default" />
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerVertical="true"
+                android:layout_toEndOf="@+id/profile_image"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/username"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="username"
+                    android:textColor="@color/colorGeneralText" />
+
+                <TextView
+                    android:id="@+id/email_address"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="email@example.com"
+                    android:textColor="@color/colorGeneralText" />
+
+                <LinearLayout
+                    android:id="@+id/edit_profile_wrapper"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginEnd="5dp"
+                        android:src="@drawable/ic_edit_profile" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Edit profile"
+                        android:textColor="@color/colorGeneralText" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/reset_password_wrapper"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="5dp"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="18dp"
+                        android:layout_height="18dp"
+                        android:layout_marginEnd="5dp"
+                        android:src="@drawable/ic_reset" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Reset password"
+                        android:textColor="@color/colorGeneralText" />
+                </LinearLayout>
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <Button
+            android:id="@+id/button_signout"
+            android:layout_width="match_parent"
+            android:layout_height="35dp"
+            android:layout_below="@+id/main_details_wrapper"
+            android:layout_marginStart="18dp"
+            android:layout_marginEnd="18dp"
+            android:background="@drawable/btn_signout"
+            android:text="Sign out"
+            android:textColor="@color/colorGeneralText"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:id="@+id/calendar_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/button_signout"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:gravity="center_vertical"
-                android:weightSum="2">
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/events_calendar"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/image_events_calendar"
-                    android:contentDescription="Events Calendar"
-                    android:layout_weight="1">
-                </ImageView>
+                    android:id="@+id/nav_calendar"
+                    android:layout_width="30dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/nav_calendar" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Events Calendar"
-                    android:textSize="20sp"
-                    android:textColor="@color/colorGeneralText"
-                    android:layout_weight="0"/>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+                    android:text="Calendar"
+                    android:textColor="@color/colorGeneralText" />
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/item_commitee"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="#55BBB7B7"
-            app:cardCornerRadius="20dp"
-            app:layout_columnWeight="1"
-            app:layout_rowWeight="1"
-            >
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#828282" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/members_cars_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/calendar_wrapper"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:gravity="center_vertical"
-                android:weightSum="2">
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/commitee"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/image_commitee"
-                    android:contentDescription="Commitee"
-                    android:layout_weight="1"/>
+                    android:id="@+id/nav_members_cars"
+                    android:layout_width="30dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/nav_members_cars" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Commitee"
-                    android:textSize="20sp"
-                    android:textColor="@color/colorGeneralText"
-                    android:layout_weight="0"/>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+                    android:text="Members cars"
+                    android:textColor="@color/colorGeneralText" />
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/item_membership"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="#55BBB7B7"
-            app:cardCornerRadius="20dp"
-            app:layout_columnWeight="1"
-            app:layout_rowWeight="1"
-            >
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#828282" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/membership_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/members_cars_wrapper"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:gravity="center_vertical"
-                android:weightSum="2">
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/membership"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/image_membership"
-                    android:contentDescription="Membership"
-                    android:layout_weight="1"/>
+                    android:id="@+id/nav_membership"
+                    android:layout_width="30dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/nav_membership" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="Membership"
-                    android:textSize="23sp"
-                    android:textColor="@color/colorGeneralText"
-                    android:layout_weight="0"/>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+                    android:textColor="@color/colorGeneralText" />
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/item_merchandise"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="#55BBB7B7"
-            app:cardCornerRadius="20dp"
-            app:layout_columnWeight="1"
-            app:layout_rowWeight="1"
-            >
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#828282" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/forums_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/membership_wrapper"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:gravity="center_vertical"
-                android:weightSum="2">
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/merchandise"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/image_merchandise"
-                    android:contentDescription="Merchandise"
-                    android:layout_weight="1"/>
+                    android:id="@+id/nav_forums"
+                    android:layout_width="30dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/nav_forums" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Merchandise"
-                    android:textSize="23sp"
-                    android:textColor="@color/colorGeneralText"
-                    android:layout_weight="0"/>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+                    android:text="Forums"
+                    android:textColor="@color/colorGeneralText" />
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/item_members_cars"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="#55BBB7B7"
-            app:cardCornerRadius="20dp"
-            app:layout_columnWeight="1"
-            app:layout_rowWeight="1"
-            >
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#828282" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/events_photos_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/forums_wrapper"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:gravity="center_vertical"
-                android:weightSum="2">
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/members_cars"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/image_members_cars"
-                    android:contentDescription="Members Cars"
-                    android:layout_weight="1"/>
+                    android:id="@+id/nav_events_photos"
+                    android:layout_width="30dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/nav_gallery" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Members Cars"
-                    android:textSize="23sp"
-                    android:textColor="@color/colorGeneralText"
-                    android:layout_weight="0"/>
-            </LinearLayout>
-        </android.support.v7.widget.CardView>
+                    android:text="Events photos"
+                    android:textColor="@color/colorGeneralText" />
 
-        <android.support.v7.widget.CardView
-            android:id="@+id/item_events_gallery"
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
-            android:layout_marginLeft="8dp"
-            app:cardElevation="0dp"
-            app:cardBackgroundColor="#55BBB7B7"
-            app:cardCornerRadius="20dp"
-            app:layout_columnWeight="1"
-            app:layout_rowWeight="1"
-            >
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#828282" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/shop_merchandise_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/events_photos_wrapper"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
                 android:gravity="center_vertical"
-                android:weightSum="2">
+                android:orientation="horizontal">
 
                 <ImageView
-                    android:id="@+id/events_gallery"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/image_events_gallery"
-                    android:contentDescription="Events Gallery"
-                    android:layout_weight="1"/>
+                    android:id="@+id/nav_shop_merchandise"
+                    android:layout_width="30dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/nav_shop_merchandise" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Events Gallery"
-                    android:textSize="23sp"
-                    android:textColor="@color/colorGeneralText"
-                    android:layout_weight="0"/>
+                    android:text="Shop merchandise"
+                    android:textColor="@color/colorGeneralText" />
+
             </LinearLayout>
-        </android.support.v7.widget.CardView>
-    </android.support.v7.widget.GridLayout>
-</LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#828282" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/payment_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/shop_merchandise_wrapper"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/nav_payment"
+                    android:layout_width="30dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/nav_payment" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Payment"
+                    android:textColor="@color/colorGeneralText" />
+
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="#cdcdcd" />
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/admin_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/payment_wrapper"
+            android:layout_margin="8dp"
+            android:text="Admin"
+            android:textColor="#f0f0f0" />
+
+        <LinearLayout
+            android:id="@+id/manage_members_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/admin_text"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/nav_manage_members"
+                    android:layout_width="30dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/nav_manage_members" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Manage members"
+                    android:textColor="@color/colorGeneralText" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/post_announcement_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/manage_members_wrapper"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/nav_post_announcement"
+                    android:layout_width="30dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/nav_announcement" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Post an announcement"
+                    android:textColor="@color/colorGeneralText" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/admin_log_wrapper"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/post_announcement_wrapper"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="0dp"
+            android:gravity="center_vertical"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="8dp"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:id="@+id/nav_admin_log"
+                    android:layout_width="30dp"
+                    android:layout_height="27dp"
+                    android:layout_marginStart="16dp"
+                    android:layout_marginEnd="16dp"
+                    android:src="@drawable/nav_admin_log" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Admin log"
+                    android:textColor="@color/colorGeneralText" />
+
+            </LinearLayout>
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/admin_log_wrapper"
+            android:layout_margin="8dp"
+            android:gravity="left"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:id="@+id/nav_instagram"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:src="@drawable/nav_instagram" />
+
+            <ImageView
+                android:id="@+id/nav_facebook"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:paddingStart="20dp"
+                android:paddingEnd="20dp"
+                android:src="@drawable/nav_facebook" />
+        </LinearLayout>
+    </RelativeLayout>
+</ScrollView>

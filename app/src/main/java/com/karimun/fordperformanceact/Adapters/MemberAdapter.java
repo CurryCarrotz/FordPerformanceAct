@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.karimun.fordperformanceact.EditMemberActivity;
 import com.karimun.fordperformanceact.Models.Member;
 import com.karimun.fordperformanceact.R;
@@ -41,6 +42,13 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
 
         final Member member = members.get(i);
 
+        if (member.getImageUrl().equals("default")) {
+            viewHolder.profileImage.setImageResource(R.drawable.image_default);
+        }
+        else {
+            Glide.with(context).load(member.getImageUrl()).into(viewHolder.profileImage);
+        }
+
         viewHolder.username.setText(member.getUsername());
         viewHolder.memberRole.setText(member.getMemberRole());
         viewHolder.membershipExpiry.setText(member.getMembershipExpiry());
@@ -51,12 +59,6 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
 
                 Intent intent = new Intent(context, EditMemberActivity.class);
                 intent.putExtra("memberId", member.getMemberId());
-                intent.putExtra("username", member.getUsername());
-                intent.putExtra("firstName", member.getFirstName());
-                intent.putExtra("surname", member.getSurname());
-                intent.putExtra("email", member.getEmail());
-                intent.putExtra("memberRole", member.getMemberRole());
-                intent.putExtra("membershipExpiry", member.getMembershipExpiry());
                 context.startActivity(intent);
             }
         });

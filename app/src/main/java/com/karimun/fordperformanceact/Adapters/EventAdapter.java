@@ -3,20 +3,25 @@ package com.karimun.fordperformanceact.Adapters;
 import android.content.Context;
 import android.graphics.Color;
 import android.support.annotation.NonNull;
+import android.support.design.widget.Snackbar;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
+import com.karimun.fordperformanceact.MainActivity;
 import com.karimun.fordperformanceact.Models.OurEvent;
 import com.karimun.fordperformanceact.R;
 
@@ -34,6 +39,8 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
     private Context mContext;
     private List<OurEvent> events;
     private boolean isEventCalendar2;
+
+    private OurEvent recentlyArchivedEvent;
 
     public EventAdapter(Context mContext, List<OurEvent> events, boolean isEventCalendar2) {
         this.mContext = mContext;
@@ -62,9 +69,21 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             viewHolder.dateWrapper.setVisibility(View.VISIBLE);
             viewHolder.eventListBottomBorder.setVisibility(View.VISIBLE);
             viewHolder.eventListContainer.setBackgroundResource(0);
+            viewHolder.eventListContainer.setBackgroundColor(Color.parseColor("#245672"));
+            viewHolder.eventListContainer.setPadding(0, 0, 0, 0);
+
+            LinearLayout.LayoutParams paramsForEventListContainer = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            paramsForEventListContainer.setMargins(0, 0, 0, 0);
+            viewHolder.eventListContainer.setLayoutParams(paramsForEventListContainer);
+
+            RelativeLayout.LayoutParams paramsForEventDetailsWrapper = new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
+            paramsForEventDetailsWrapper.setMargins(100, 0, 100, 0);
+            viewHolder.eventDetailsWrapper.setLayoutParams(paramsForEventDetailsWrapper);
+
             viewHolder.eventTitle.setTextColor(Color.parseColor("#d9d9d9"));
             viewHolder.timeStamp.setTextColor(Color.parseColor("#d9d9d9"));
             viewHolder.locationStamp.setTextColor(Color.parseColor("#d9d9d9"));
+            viewHolder.eventLeftBar.setVisibility(View.VISIBLE);
         }
 
         viewHolder.dateStamp.setText(ourEvent.getDayOfWeekStart() + ", " + ourEvent.getDateStart());
@@ -228,8 +247,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         RelativeLayout dateWrapper;
         TextView dateStamp;
         TextView dayCounter;
+        ImageView eventLeftBar;
         View eventListBottomBorder;
         LinearLayout eventListContainer;
+        LinearLayout eventDetailsWrapper;
 
         public ViewHolder(@NonNull View itemView) {
             super(itemView);
@@ -240,8 +261,10 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             dateWrapper = itemView.findViewById(R.id.date_wrapper);
             dateStamp = itemView.findViewById(R.id.date_stamp);
             dayCounter = itemView.findViewById(R.id.day_counter);
+            eventLeftBar = itemView.findViewById(R.id.event_left_bar);
             eventListBottomBorder = itemView.findViewById(R.id.event_list_bottom_border);
             eventListContainer = itemView.findViewById(R.id.event_list_container);
+            eventDetailsWrapper = itemView.findViewById(R.id.event_details_wrapper);
         }
     }
 
@@ -250,6 +273,7 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
         reference.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
                 for (DataSnapshot snapshot : dataSnapshot.getChildren()) {
                     OurEvent ourEvent = snapshot.getValue(OurEvent.class);
 
@@ -264,5 +288,71 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
 
             }
         });
+    }
+
+    public void deleteEventOnSwipe(int position) {
+
+        recentlyArchivedEvent = events.get(position);
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Event").child(recentlyArchivedEvent.getEventId());
+        HashMap<String, Object> hashMap = new HashMap<>();
+        hashMap.put("isEventArchived", true);
+        reference.updateChildren(hashMap);
+        recentlyArchivedEvent.setEventArchived(true);
+
+        showUndoSnackbar();
+    }
+
+    private void showUndoSnackbar() {
+
+        View view = MainActivity.fragmentContainer;
+        Snackbar snackbar = Snackbar.make(view, "Event will be deleted shortly.", Snackbar.LENGTH_LONG);
+        snackbar.setAction("Undo", new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Event").child(recentlyArchivedEvent.getEventId());
+                HashMap<String, Object> hashMap = new HashMap<>();
+                hashMap.put("isEventArchived", false);
+                reference.updateChildren(hashMap);
+                recentlyArchivedEvent.setEventArchived(false);
+            }
+        });
+
+
+        snackbar.addCallback(new Snackbar.Callback() {
+
+            @Override
+            public void onDismissed(Snackbar transientBottomBar, int event) {
+                super.onDismissed(transientBottomBar, event);
+
+                if (recentlyArchivedEvent.isEventArchived()) {
+                    final DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Event").child(recentlyArchivedEvent.getEventId());
+                    reference.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                            dataSnapshot.getRef().removeValue();
+                            Toast.makeText(mContext, "Event has been removed.", Toast.LENGTH_SHORT).show();
+                        }
+
+                        @Override
+                        public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                        }
+                    });
+                }
+            }
+        });
+
+
+        snackbar.show();
+    }
+
+    public Context getmContext() {
+        return mContext;
+    }
+
+    public List<OurEvent> getEvents() {
+        return events;
     }
 }

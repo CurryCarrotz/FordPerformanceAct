@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="#CC0E2D3F"
     android:orientation="vertical"
     android:padding="10dp">
@@ -10,7 +11,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="10dp"
-        android:text="Membership Role"
+        android:text="Membership Details"
         android:textColor="@color/colorGeneralText"
         android:textSize="23sp" />
 
@@ -25,12 +26,12 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:labelFor="@+id/field_old_membership_role"
-            android:text="Old membership role"
+            android:text="Membership expiry date"
             android:textColor="@color/colorGeneralText"
             android:layout_marginStart="8dp"/>
 
         <EditText
-            android:id="@+id/field_old_membership_role"
+            android:id="@+id/field_membership_expiry_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="13dp"
@@ -38,6 +39,7 @@
             android:padding="8dp"
             android:singleLine="true"
             android:focusable="false"
+            android:editable="false"
             />
 
         <TextView
@@ -45,18 +47,53 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="8dp"
             android:labelFor="@+id/field_new_membership_role"
-            android:text="New membership role"
+            android:text="Membership role"
+            android:textColor="@color/colorGeneralText"
+            android:layout_marginStart="8dp"/>
+
+        <Spinner
+            android:id="@+id/field_new_membership_role"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_marginBottom="13dp"
+            android:background="@drawable/field_popup"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="8dp"
+            android:labelFor="@+id/field_new_membership_role"
+            android:text="Renewal paid date"
             android:textColor="@color/colorGeneralText"
             android:layout_marginStart="8dp"/>
 
         <EditText
-            android:id="@+id/field_new_membership_role"
+            android:id="@+id/field_renewal_paid_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="13dp"
             android:background="@drawable/field_popup"
             android:padding="8dp"
-            android:singleLine="true"/>
+            android:singleLine="true"
+            android:editable="false"
+            android:focusable="false"/>
+
+        <CheckBox
+            android:id="@+id/checkbox_active_member"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Active member"
+            android:textColor="@color/colorGeneralText"
+            app:buttonTint="@color/colorGeneralText"
+            />
+
+        <CheckBox
+            android:id="@+id/checkbox_admin"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Admin"
+            android:textColor="@color/colorGeneralText"
+            app:buttonTint="@color/colorGeneralText"/>
 
         <Button
             android:id="@+id/confirm_changes"
@@ -65,6 +102,8 @@
             android:layout_gravity="center"
             android:background="@drawable/btn_popup_window"
             android:text="Confirm changes" />
+
+
     </LinearLayout>
 
 </LinearLayout>

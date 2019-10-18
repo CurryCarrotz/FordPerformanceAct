@@ -3,12 +3,12 @@ package com.karimun.fordperformanceact.Models;
 public class OurEvent {
 
     private String eventId, title, dateStart, timeStart, dateEnd, timeEnd, location, dayOfWeekStart, dayCounter;
-    private boolean sendNotification;
+    private boolean sendNotification, isEventArchived;
 
     OurEvent() {}
 
     OurEvent(String eventId, String title, String dateStart, String timeStart
-            , String dateEnd, String timeEnd, String location, String dayCounter, boolean sendNotification) {
+            , String dateEnd, String timeEnd, String location, String dayCounter, boolean sendNotification, boolean isEventArchived) {
 
         this.eventId = eventId;
         this.title = title;
@@ -19,6 +19,7 @@ public class OurEvent {
         this.location = location;
         this.dayCounter = dayCounter;
         this.sendNotification = sendNotification;
+        this.isEventArchived = isEventArchived;
     }
 
     public String getEventId() {
@@ -99,5 +100,13 @@ public class OurEvent {
 
     public void setSendNotification(boolean sendNotification) {
         this.sendNotification = sendNotification;
+    }
+
+    public boolean isEventArchived() {
+        return isEventArchived;
+    }
+
+    public void setEventArchived(boolean eventArchived) {
+        this.isEventArchived = eventArchived;
     }
 }

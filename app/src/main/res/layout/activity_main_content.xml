@@ -52,7 +52,7 @@
                         android:layout_width="100dp"
                         android:layout_height="match_parent"
                         android:contentDescription="View"
-                        android:src="@drawable/icon_view" />
+                        android:src="@drawable/ic_view" />
 
                     <TextView
                         android:layout_width="match_parent"
