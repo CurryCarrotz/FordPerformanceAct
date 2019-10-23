@@ -3,6 +3,7 @@ package com.karimun.fordperformanceact.Fragments;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -15,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -41,6 +43,7 @@ public class HomeFragment extends Fragment {
     TextView username, emailAddress;
     LinearLayout editProfile, resetPassword;
     Button btnSignout;
+    RelativeLayout adminSection;
 
     FirebaseUser fUser;
 
@@ -87,6 +90,12 @@ public class HomeFragment extends Fragment {
         // Assign values to edit profile and reset password variables
         editProfile = view.findViewById(R.id.edit_profile_wrapper);
         resetPassword = view.findViewById(R.id.reset_password_wrapper);
+
+        // Assign value to admin wrapper
+        adminSection = view.findViewById(R.id.admin_section);
+
+        // Set admin section if currently logged in member is an admin
+        setAdminSectionIfMemberIsAdmin(fUser);
 
         // Set profile picture, username, and email address to the header of home page
         setUserDetails(profilePicture, username, emailAddress);
@@ -236,6 +245,31 @@ public class HomeFragment extends Fragment {
 
                     textViews[0].setText(member.getUsername());
                     textViews[1].setText(member.getEmail());
+                }
+            }
+
+            @Override
+            public void onCancelled(@NonNull DatabaseError databaseError) {
+
+            }
+        });
+    }
+
+    private void setAdminSectionIfMemberIsAdmin(FirebaseUser member) {
+
+        DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Member").child(member.getUid());
+        reference.addValueEventListener(new ValueEventListener() {
+            @Override
+            public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+                Member member = dataSnapshot.getValue(Member.class);
+
+                if (member != null) {
+                    if (member.isAdmin()) {
+                        adminSection.setVisibility(View.VISIBLE);
+                    }
+                    else {
+                        adminSection.setVisibility(View.GONE);
+                    }
                 }
             }
 

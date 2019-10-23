@@ -34,6 +34,7 @@ import com.karimun.fordperformanceact.Fragments.EventCalendarFragment;
 import com.karimun.fordperformanceact.Fragments.EventCalendarFragment2;
 import com.karimun.fordperformanceact.Fragments.HomeFragment;
 import com.karimun.fordperformanceact.Fragments.ManageMembersFragment;
+import com.karimun.fordperformanceact.Fragments.SponsorsFragment;
 import com.karimun.fordperformanceact.Models.Member;
 
 import java.util.ArrayList;
@@ -205,6 +206,13 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.nav_sponsors:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        mainAppTitle.setText("Club Sponsors");
+                        viewWrapper.setVisibility(View.INVISIBLE);
+
+                        SponsorsFragment sponsorsFragment = new SponsorsFragment();
+                        openedNotInBackStackFragments.add(sponsorsFragment);
+                        changeFragment(sponsorsFragment);
                         break;
 
                     case R.id.nav_shop_merchandise:
