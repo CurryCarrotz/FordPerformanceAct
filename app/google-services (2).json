@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "126680206099",
+    "firebase_url": "https://ford-performance-club-of-c9fcb.firebaseio.com",
+    "project_id": "ford-performance-club-of-c9fcb",
+    "storage_bucket": "ford-performance-club-of-c9fcb.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:126680206099:android:caba5015897b204b5d68e6",
+        "android_client_info": {
+          "package_name": "com.karimun.fordperformanceact"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "126680206099-5l2ir4ssqe78lpsdvk8h9ddfdkmpgcib.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.karimun.fordperformanceact",
+            "certificate_hash": "d7d6e0794243d02a9c18f942b92646dd60564e43"
+          }
+        },
+        {
+          "client_id": "126680206099-jgpi93htqglfiooatdmqatpqo7bv45gg.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBBT_FaWwCLQKHmnviBjiOeZpgFq8xCbwI"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "126680206099-jgpi93htqglfiooatdmqatpqo7bv45gg.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

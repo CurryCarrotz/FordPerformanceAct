@@ -1,0 +1,212 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/image_background2"
+    tools:context=".MembershipActivity">
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:elevation="0dp">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/edit_profile_toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginEnd="50dp"
+                android:layout_marginRight="50dp"
+                android:gravity="center"
+                android:text="Membership"
+                android:textAlignment="center"
+                android:textColor="@color/colorGeneralText"
+                android:textSize="25sp" />
+        </android.support.v7.widget.Toolbar>
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/info_membership"
+        android:orientation="vertical"
+        android:layout_below="@id/app_bar_layout">
+
+        <TextView
+            android:id="@+id/view_all_yo"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="14dp"
+            android:layout_alignParentTop="true"
+            android:text="@string/view_all_yo"
+            android:textAppearance="@style/view_all_yo"
+            android:gravity="center_vertical"
+            />
+
+        <TextView
+            android:id="@+id/view_all_yo_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="14dp"
+            android:layout_alignParentTop="true"
+            android:text="@string/membership_note"
+            android:textAppearance="@style/view_all_yo_1"
+            android:gravity="center_vertical"
+            />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/membership_form"
+        android:orientation="vertical"
+        android:layout_below="@+id/info_membership"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:paddingTop="15dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Membership Role"
+            android:id="@+id/txt_member_role"
+            android:textAppearance="@style/membership_"/>
+        <EditText
+            android:id="@+id/edt_txt_role"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:paddingEnd="0dp"
+            android:inputType="text"
+            android:textSize="16sp"
+            android:textColor="@color/colorGeneralText"
+            android:textColorHint="#c0c0c0"
+            android:hint="Developer"
+            android:singleLine="true"
+            android:background="#990E2D3F"
+            android:padding="12dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Membership Renewal Due"
+            android:id="@+id/txt_rnwal_due"
+            android:paddingTop="15dp"
+            android:textAppearance="@style/membership_"/>
+        <EditText
+            android:id="@+id/edt_txt_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:paddingEnd="0dp"
+            android:inputType="text"
+            android:textSize="16sp"
+            android:textColor="@color/colorGeneralText"
+            android:textColorHint="#c0c0c0"
+            android:hint="25/12/2019"
+            android:singleLine="true"
+            android:background="#990E2D3F"
+            android:padding="12dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Membership Expiry"
+            android:id="@+id/txt_exp"
+            android:paddingTop="15dp"
+            android:textAppearance="@style/membership_"/>
+        <EditText
+            android:id="@+id/edt_txt_exp_date"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:paddingEnd="0dp"
+            android:inputType="text"
+            android:textSize="16sp"
+            android:textColor="@color/colorGeneralText"
+            android:textColorHint="#c0c0c0"
+            android:hint="25/12/2019"
+            android:singleLine="true"
+            android:background="#990E2D3F"
+            android:padding="12dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Member Since"
+            android:id="@+id/txt_since"
+            android:paddingTop="15dp"
+            android:textAppearance="@style/membership_"/>
+        <EditText
+            android:id="@+id/edt_txt_mem_since"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:paddingEnd="0dp"
+            android:inputType="text"
+            android:textSize="16sp"
+            android:textColor="@color/colorGeneralText"
+            android:textColorHint="#c0c0c0"
+            android:hint="05/08/2019"
+            android:singleLine="true"
+            android:background="#990E2D3F"
+            android:padding="12dp"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Membership Renewal Paid"
+            android:id="@+id/txt_rnwal_paid"
+            android:textAppearance="@style/membership_"
+            android:paddingTop="15dp"/>
+        <EditText
+            android:id="@+id/edt_txt_rnwal_paid"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:paddingStart="10dp"
+            android:paddingLeft="0dp"
+            android:paddingRight="0dp"
+            android:paddingEnd="0dp"
+            android:inputType="text"
+            android:textSize="16sp"
+            android:textColor="@color/colorGeneralText"
+            android:textColorHint="#c0c0c0"
+            android:hint="05/08/2019"
+            android:singleLine="true"
+            android:background="#990E2D3F"
+            android:padding="12dp"/>
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_below="@+id/membership_form"
+        android:id="@+id/proceed_to_renewal"
+        android:layout_marginTop="15dp">
+
+        <Button
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="Proceed to Renewal"
+            android:background="@drawable/proceed_to_renewal"/>
+    </LinearLayout>
+
+</RelativeLayout>
