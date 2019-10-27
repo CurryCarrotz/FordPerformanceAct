@@ -32,8 +32,10 @@ import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.karimun.fordperformanceact.Fragments.EventCalendarFragment;
 import com.karimun.fordperformanceact.Fragments.EventCalendarFragment2;
+import com.karimun.fordperformanceact.Fragments.EventPhotosFragment;
 import com.karimun.fordperformanceact.Fragments.HomeFragment;
 import com.karimun.fordperformanceact.Fragments.ManageMembersFragment;
+import com.karimun.fordperformanceact.Fragments.MembershipFragment;
 import com.karimun.fordperformanceact.Fragments.SponsorsFragment;
 import com.karimun.fordperformanceact.Models.Member;
 
@@ -194,15 +196,38 @@ public class MainActivity extends AppCompatActivity {
                         break;
 
                     case R.id.nav_members_cars:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        mainAppTitle.setText("Members Cars");
+                        viewWrapper.setVisibility(View.INVISIBLE);
+
+                        EventPhotosFragment eventPhotosFragment2 = new EventPhotosFragment();
+                        openedNotInBackStackFragments.add(eventPhotosFragment2);
+                        changeFragment(eventPhotosFragment2);
                         break;
 
                     case R.id.nav_membership:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        mainAppTitle.setText("Membership");
+                        viewWrapper.setVisibility(View.INVISIBLE);
+
+                        MembershipFragment membershipFragment = new MembershipFragment();
+                        openedNotInBackStackFragments.add(membershipFragment);
+                        changeFragment(membershipFragment);
                         break;
 
                     case R.id.nav_forums:
+                        Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.fordforums.com.au/forumdisplay.php?f=65"));
+                        startActivity(intent);
                         break;
 
                     case R.id.nav_gallery:
+                        drawerLayout.closeDrawer(GravityCompat.START);
+                        mainAppTitle.setText("Event Photos");
+                        viewWrapper.setVisibility(View.INVISIBLE);
+
+                        EventPhotosFragment eventPhotosFragment = new EventPhotosFragment();
+                        openedNotInBackStackFragments.add(eventPhotosFragment);
+                        changeFragment(eventPhotosFragment);
                         break;
 
                     case R.id.nav_sponsors:
@@ -226,9 +251,6 @@ public class MainActivity extends AppCompatActivity {
                         ManageMembersFragment manageMembersFragment = new ManageMembersFragment();
                         openedNotInBackStackFragments.add(manageMembersFragment);
                         changeFragment(manageMembersFragment);
-                        break;
-
-                    case R.id.nav_admin_log:
                         break;
                 }
                 return true;

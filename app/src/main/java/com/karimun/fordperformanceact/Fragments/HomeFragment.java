@@ -76,8 +76,6 @@ public class HomeFragment extends Fragment {
         itemShopMerchandise = view.findViewById(R.id.shop_merchandise_wrapper);
         itemPayment = view.findViewById(R.id.payment_wrapper);
         itemManageMembers = view.findViewById(R.id.manage_members_wrapper);
-        itemPostAnnouncement = view.findViewById(R.id.post_announcement_wrapper);
-        itemAdminLog = view.findViewById(R.id.admin_log_wrapper);
         itemInstagram = view.findViewById(R.id.nav_instagram);
         itemFacebook = view.findViewById(R.id.nav_facebook);
 
@@ -134,6 +132,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 MainActivity.mainAppTitle.setText("Members Cars");
+                MainActivity.viewWrapper.setVisibility(View.INVISIBLE);
+                MainActivity.isCurrentFragmentHome = false;
+                changeFragment(new EventPhotosFragment());
                 //changeFragment(new MembersCarsFragment());
             }
         });
@@ -142,15 +143,17 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 MainActivity.mainAppTitle.setText("Membership");
-                //changeFragment(new MembershipFragment());
+                MainActivity.viewWrapper.setVisibility(View.INVISIBLE);
+                MainActivity.isCurrentFragmentHome = false;
+                changeFragment(new MembershipFragment());
             }
         });
 
         itemForums.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                MainActivity.mainAppTitle.setText("Forums");
-                //changeFragment(new ForumsFragment());
+                Intent intent = new Intent(Intent.ACTION_VIEW, Uri.parse("http://www.fordforums.com.au/forumdisplay.php?f=65"));
+                startActivity(intent);
             }
         });
 
@@ -158,7 +161,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 MainActivity.mainAppTitle.setText("Events Photos");
-                //changeFragment(new EventsPhotosFragment());
+                MainActivity.viewWrapper.setVisibility(View.INVISIBLE);
+                MainActivity.isCurrentFragmentHome = false;
+                changeFragment(new EventPhotosFragment());
             }
         });
 
@@ -174,7 +179,9 @@ public class HomeFragment extends Fragment {
             @Override
             public void onClick(View v) {
                 MainActivity.mainAppTitle.setText("Payment");
-                //changeFragment(new PaymentFragment());
+                MainActivity.viewWrapper.setVisibility(View.INVISIBLE);
+                MainActivity.isCurrentFragmentHome = false;
+                changeFragment(new PaymentsFragment());
             }
         });
 
@@ -185,22 +192,6 @@ public class HomeFragment extends Fragment {
                 MainActivity.viewWrapper.setVisibility(View.INVISIBLE);
                 MainActivity.isCurrentFragmentHome = false;
                 changeFragment(new ManageMembersFragment());
-            }
-        });
-
-        itemPostAnnouncement.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainActivity.mainAppTitle.setText("Post Announcement");
-                //changeFragment(new PostAnnouncementFragment());
-            }
-        });
-
-        itemAdminLog.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                MainActivity.mainAppTitle.setText("Admin Log");
-                //changeFragment(new AdminLogFragment());
             }
         });
 

@@ -49,7 +49,7 @@
                     android:textSize="20sp"
                     android:textColor="@color/colorGeneralText"
                     android:textColorHint="#c0c0c0"
-                    android:hint="Username"
+                    android:hint="Email"
                     android:singleLine="true"
                     android:background="#990E2D3F"
                     android:padding="12dp" />

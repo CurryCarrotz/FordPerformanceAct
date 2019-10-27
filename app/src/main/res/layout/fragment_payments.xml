@@ -1,0 +1,143 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/image_background2"
+    tools:context=".Fragments.PaymentsFragment">
+
+    <TextView
+        android:id="@+id/payments_to"
+        android:layout_width="397dp"
+        android:layout_height="179dp"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="14dp"
+        android:layout_marginTop="42dp"
+        android:gravity="center_vertical"
+        android:text="@string/payments_to"
+        android:textAppearance="@style/payments_to" />
+
+    <RelativeLayout
+        android:id="@+id/member_detail_wrapper"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/payments_to"
+        android:layout_margin="8dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="8dp"
+            android:text="Bank"
+            android:textColor="@color/colorGeneralText"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/username_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="8dp"
+            android:text="ANZ"
+            android:textColor="@color/colorGeneralText"
+            android:textSize="17sp" />
+
+        <View
+            android:id="@+id/username_line"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/username_value"
+            android:layout_margin="8dp"
+            android:background="#fff" />
+
+        <TextView
+            android:id="@+id/bsb_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/username_line"
+            android:layout_margin="8dp"
+            android:text="BSB"
+            android:textColor="@color/colorGeneralText"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/bsb_value"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/username_line"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="8dp"
+            android:text="012955"
+            android:textColor="@color/colorGeneralText"
+            android:textSize="17sp" />
+
+        <View
+            android:id="@+id/username_line_1"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/username_value"
+            android:layout_margin="8dp"
+            android:background="#fff" />
+
+
+        <View
+            android:id="@+id/username_line_2"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/bsb_name"
+            android:layout_margin="8dp"
+            android:background="#fff" />
+
+        <TextView
+            android:id="@+id/account_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/username_line_2"
+            android:layout_margin="8dp"
+            android:text="Account"
+            android:textColor="@color/colorGeneralText"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/account_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/username_line_2"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="8dp"
+            android:text="411797958"
+            android:textColor="@color/colorGeneralText"
+            android:textSize="17sp" />
+
+        <View
+            android:id="@+id/username_line_3"
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:layout_below="@+id/account_1"
+            android:layout_margin="8dp"
+            android:background="#fff" />
+
+        <TextView
+            android:id="@+id/account_2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/username_line_3"
+            android:layout_margin="8dp"
+            android:text="Reference"
+            android:textColor="@color/colorGeneralText"
+            android:textSize="17sp" />
+
+        <TextView
+            android:id="@+id/account_number_1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/username_line_3"
+            android:layout_alignParentEnd="true"
+            android:layout_margin="8dp"
+            android:text="Your name (cross reference payment)"
+            android:textColor="@color/colorGeneralText"
+            android:textSize="15sp" />
+
+    </RelativeLayout>
+</RelativeLayout>

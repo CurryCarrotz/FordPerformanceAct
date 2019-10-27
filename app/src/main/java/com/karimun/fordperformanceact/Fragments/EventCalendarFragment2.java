@@ -240,8 +240,48 @@ public class EventCalendarFragment2 extends Fragment {
                                             createEventWindow.dismiss();
                                         } else if (dateStartField.getText().toString().equals(dateEndField.getText().toString())) {
 
-                                            if (convertStringToDateForTime(timeStartField.getText().toString())
-                                                    .compareTo(convertStringToDateForTime(timeEndField.getText().toString())) <= 0) {
+                                            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+                                            String currentTime = sdf.format(Calendar.getInstance().getTime());
+
+                                            if (convertStringToDateForTime(timeStartField.getText().toString()).compareTo(convertStringToDateForTime(currentTime)) >= 0) {
+
+                                                if (convertStringToDateForTime(timeStartField.getText().toString())
+                                                        .compareTo(convertStringToDateForTime(timeEndField.getText().toString())) <= 0) {
+
+                                                    hashMap.put("eventId", reference.getKey());
+                                                    hashMap.put("title", eventTitleField.getText().toString());
+                                                    hashMap.put("dateStart", changeDateFormat(dateStartField.getText().toString()));
+                                                    hashMap.put("timeStart", timeStartField.getText().toString());
+                                                    hashMap.put("dateEnd", changeDateFormat(dateEndField.getText().toString()));
+                                                    hashMap.put("timeEnd", timeEndField.getText().toString());
+                                                    hashMap.put("location", eventLocationField.getText().toString());
+                                                    hashMap.put("dayOfWeekStart", dayOfWeekStart);
+                                                    hashMap.put("isEventArchived", false);
+
+                                                    if (sendNotificationCheckBox.isChecked()) {
+                                                        hashMap.put("sendNotification", true);
+                                                    } else {
+                                                        hashMap.put("sendNotification", false);
+                                                    }
+
+                                                    reference.updateChildren(hashMap);
+
+                                                    Toast.makeText(getContext(), "Event has been successfully created.", Toast.LENGTH_SHORT).show();
+                                                    createEventWindow.dismiss();
+                                                } else {
+                                                    Toast.makeText(getContext(), "End time must occur after start time.", Toast.LENGTH_SHORT).show();
+                                                }
+                                            }
+                                            else {
+                                                Toast.makeText(getContext(), "Start time has expired.", Toast.LENGTH_SHORT).show();
+                                            }
+                                        } else if (dateStartField.getText() != null && dateEndField.getText() != null && convertStringToDateForDate(dateStartField.getText().toString())
+                                                .compareTo(convertStringToDateForDate(dateEndField.getText().toString())) < 0) {
+
+                                            SimpleDateFormat sdf = new SimpleDateFormat("hh:mm a", Locale.getDefault());
+                                            String currentTime = sdf.format(Calendar.getInstance().getTime());
+
+                                            if (convertStringToDateForTime(timeStartField.getText().toString()).compareTo(convertStringToDateForTime(currentTime)) >= 0) {
 
                                                 hashMap.put("eventId", reference.getKey());
                                                 hashMap.put("title", eventTitleField.getText().toString());
@@ -263,32 +303,10 @@ public class EventCalendarFragment2 extends Fragment {
 
                                                 Toast.makeText(getContext(), "Event has been successfully created.", Toast.LENGTH_SHORT).show();
                                                 createEventWindow.dismiss();
-                                            } else {
-                                                Toast.makeText(getContext(), "Must pick time after start time", Toast.LENGTH_SHORT).show();
                                             }
-                                        } else if (dateStartField.getText() != null && dateEndField.getText() != null && convertStringToDateForDate(dateStartField.getText().toString())
-                                                .compareTo(convertStringToDateForDate(dateEndField.getText().toString())) < 0) {
-
-                                            hashMap.put("eventId", reference.getKey());
-                                            hashMap.put("title", eventTitleField.getText().toString());
-                                            hashMap.put("dateStart", changeDateFormat(dateStartField.getText().toString()));
-                                            hashMap.put("timeStart", timeStartField.getText().toString());
-                                            hashMap.put("dateEnd", changeDateFormat(dateEndField.getText().toString()));
-                                            hashMap.put("timeEnd", timeEndField.getText().toString());
-                                            hashMap.put("location", eventLocationField.getText().toString());
-                                            hashMap.put("dayOfWeekStart", dayOfWeekStart);
-                                            hashMap.put("isEventArchived", false);
-
-                                            if (sendNotificationCheckBox.isChecked()) {
-                                                hashMap.put("sendNotification", true);
-                                            } else {
-                                                hashMap.put("sendNotification", false);
+                                            else {
+                                                Toast.makeText(getContext(), "Start time has expired.", Toast.LENGTH_SHORT).show();
                                             }
-
-                                            reference.updateChildren(hashMap);
-
-                                            Toast.makeText(getContext(), "Event has been successfully created.", Toast.LENGTH_SHORT).show();
-                                            createEventWindow.dismiss();
                                         } else {
                                             Toast.makeText(getContext(), "Start date must not occur after end date.", Toast.LENGTH_SHORT).show();
                                         }

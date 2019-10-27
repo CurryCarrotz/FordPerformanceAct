@@ -4,4 +4,19 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="view_all_yo">
+
+View all your membership details below. If you wish to extend your membership, please apply for an extension using the form below.
+
+        \n\n
+</string>
+    <string name="membership_note">
+        Note: An annual membership renewal fee will be applied and required to be paid for a club member to approve your extension.
+    </string>
+
+    <string name="payments_to">
+
+Payments to the Ford Performance Club of ACT are usually made in person the treasurer at a meeting or event, or alternatively by bank direct deposit. Details to make a bank deposit outlined below.
+</string>
 </resources>
