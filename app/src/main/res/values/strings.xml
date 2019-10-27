@@ -4,4 +4,13 @@
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+
+    <string name="view_all_yo">
+
+View all your membership details below. If you wish to extend your membership, please apply for an extension using the form below.\n
+</string>
+
+    <string name="membership_note">
+        Note: An annual membership renewal fee will be applied and required to be paid for a club member to approve your extension.
+    </string>
 </resources>
