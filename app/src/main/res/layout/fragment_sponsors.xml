@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/image_background2"
+    tools:context=".Fragments.SponsorsFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="8dp">
+
+        <LinearLayout
+            android:id="@+id/spon_johnmcgrathford"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#99c0c0c0"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/image_johnmcgrath"
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="John McGrath Ford"
+                android:textColor="@color/colorGeneralText"
+                android:textSize="17sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/spon_kaleen"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#99c0c0c0"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/image_kaleen"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Kaleen Sports Club"
+                android:textColor="@color/colorGeneralText"
+                android:textSize="17sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/spon_gentech"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#99c0c0c0"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/image_gentech"
+                android:layout_weight="1"
+                />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="GenTech Performance"
+                android:textColor="@color/colorGeneralText"
+                android:textSize="17sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/spon_canberrabodyworks"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#99c0c0c0"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/image_canberra_bodyworks"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Canberra Bodyworks"
+                android:textColor="@color/colorGeneralText"
+                android:textSize="17sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/spon_shannons"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#99c0c0c0"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/image_shannons_insurance"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Shannons Insurance"
+                android:textColor="@color/colorGeneralText"
+                android:textSize="17sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/spon_leatherfx"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#99c0c0c0"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/image_leatherfx"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Leather FX"
+                android:textColor="@color/colorGeneralText"
+                android:textSize="17sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/spon_actdiffdr"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#99c0c0c0"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/image_actdiffdr"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="ACT Diff DR"
+                android:textColor="@color/colorGeneralText"
+                android:textSize="17sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/spon_tintacar"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#99c0c0c0"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/image_tintacar"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Tint a Car Fyshwick"
+                android:textColor="@color/colorGeneralText"
+                android:textSize="17sp"
+                />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/spon_capitalsigns"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#99c0c0c0"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/image_capitalsigns"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Capital Signs"
+                android:textColor="@color/colorGeneralText"
+                android:textSize="17sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/spon_alltypebatterysolutions"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#99c0c0c0"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/image_alltypebatterysolutions"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="All Type Battery Solutions"
+                android:textColor="@color/colorGeneralText"
+                android:textSize="17sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/spon_reflection"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#99c0c0c0"
+            android:gravity="center"
+            android:layout_marginBottom="8dp"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/image_reflection"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Reflection Detailing and Coatings"
+                android:textColor="@color/colorGeneralText"
+                android:textSize="17sp"/>
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/spon_allstatestowing"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:background="#99c0c0c0"
+            android:gravity="center"
+            android:orientation="vertical"
+            android:weightSum="1">
+
+            <ImageView
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:src="@drawable/image_allstatestowing"
+                android:layout_weight="1"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="All States Towing"
+                android:textColor="@color/colorGeneralText"
+                android:textSize="17sp"/>
+        </LinearLayout>
+    </LinearLayout>
+</ScrollView>
