@@ -9,12 +9,13 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EditMemberActivity"></activity>
-        <activity android:name=".EditProfileActivity"></activity>
-        <activity android:name=".EventPhotosActivity"></activity>
+        <activity android:name=".EventsPhotoViewActivity"></activity>
+        <activity android:name=".EditMemberActivity" />
+        <activity android:name=".EditProfileActivity" />
+        <activity android:name=".EventPhotosActivity" />
         <activity
             android:name=".MainActivity"
-            android:configChanges="orientation|screenSize|keyboardHidden"></activity>
+            android:configChanges="orientation|screenSize|keyboardHidden" />
         <activity
             android:name=".LoginActivity"
             android:windowSoftInputMode="adjustPan">
