@@ -56,7 +56,7 @@
         app:compactCalendarEventIndicatorStyle="small_indicator"
         app:compactCalendarTargetHeight="250dp"
         app:compactCalendarTextSize="12sp"
-        app:compactCalendarBackgroundColor="@color/colorPrimary"
+        app:compactCalendarBackgroundColor="#00ffffff"
         app:compactCalendarTextColor="#fff"
         app:compactCalendarCurrentSelectedDayBackgroundColor="#ffffff"
         app:compactCalendarCurrentDayBackgroundColor="#686868"

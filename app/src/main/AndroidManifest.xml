@@ -10,7 +10,7 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".EventsPhotoViewActivity"></activity>
+        <activity android:name=".EventsPhotoViewActivity" />
         <activity android:name=".EditProfileActivity" />
         <activity android:name=".EditMemberActivity" />
         <activity
@@ -19,6 +19,13 @@
         <activity
             android:name=".LoginActivity"
             android:windowSoftInputMode="adjustPan">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.DEFAULT" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".SplashScreenActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 

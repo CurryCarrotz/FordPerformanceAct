@@ -2,6 +2,7 @@ package com.karimun.fordperformanceact;
 
 import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
@@ -11,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -48,13 +50,23 @@ public class LoginActivity extends AppCompatActivity {
 
         final EditText usernameLogin = findViewById(R.id.username_login);
         final EditText passwordLogin = findViewById(R.id.password_login);
-        Button btnLogin = findViewById(R.id.button_signin);
-        TextView forgotPassword = findViewById(R.id.go_to_forgot_password);
+        final Button btnLogin = findViewById(R.id.button_signin);
+        final TextView forgotPassword = findViewById(R.id.go_to_forgot_password);
+        final ProgressBar loading = findViewById(R.id.loading);
 
         btnLogin.setOnClickListener(new View.OnClickListener() {
 
             @Override
             public void onClick(final View view) {
+
+                loading.setVisibility(View.VISIBLE);
+                loading.bringToFront();
+                usernameLogin.setFocusable(false);
+                usernameLogin.setFocusableInTouchMode(false);
+                passwordLogin.setFocusable(false);
+                passwordLogin.setFocusableInTouchMode(false);
+                btnLogin.setClickable(false);
+                forgotPassword.setClickable(false);
 
                 if (!TextUtils.isEmpty(usernameLogin.getText()) && !TextUtils.isEmpty(passwordLogin.getText())) {
 
@@ -62,18 +74,37 @@ public class LoginActivity extends AppCompatActivity {
                             .addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                                 @Override
                                 public void onComplete(@NonNull Task<AuthResult> task) {
+
                                     if (task.isSuccessful()) {
+
                                         Intent intent = new Intent(getApplicationContext(), MainActivity.class);
                                         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
                                         startActivity(intent);
                                         finish();
+
                                     } else {
+                                        // Reason to set them back to true is because, user may fail to login.
+                                        loading.setVisibility(View.GONE);
+                                        usernameLogin.setFocusable(true);
+                                        usernameLogin.setFocusableInTouchMode(true);
+                                        passwordLogin.setFocusable(true);
+                                        passwordLogin.setFocusableInTouchMode(true);
+                                        btnLogin.setClickable(true);
+                                        forgotPassword.setClickable(true);
                                         Snackbar.make(view, "Wrong email or password.", Snackbar.LENGTH_LONG).show();
                                     }
                                 }
                             });
                 }
                 else {
+                    // Reason to set them back to true is because, user may fail to login.
+                    loading.setVisibility(View.GONE);
+                    usernameLogin.setFocusable(true);
+                    usernameLogin.setFocusableInTouchMode(true);
+                    passwordLogin.setFocusable(true);
+                    passwordLogin.setFocusableInTouchMode(true);
+                    btnLogin.setClickable(true);
+                    forgotPassword.setClickable(true);
                     Snackbar.make(view, "Fields must not be empty.", Snackbar.LENGTH_LONG).show();
                 }
             }

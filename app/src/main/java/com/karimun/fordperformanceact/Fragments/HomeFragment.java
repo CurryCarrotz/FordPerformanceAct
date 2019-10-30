@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -41,9 +42,10 @@ public class HomeFragment extends Fragment {
     ImageView itemInstagram, itemFacebook;
     CircleImageView profilePicture;
     TextView username, emailAddress;
-    LinearLayout editProfile, resetPassword;
+    LinearLayout editProfile;
     Button btnSignout;
     RelativeLayout adminSection;
+    ProgressBar loading;
 
     FirebaseUser fUser;
 
@@ -67,6 +69,9 @@ public class HomeFragment extends Fragment {
         ((AppCompatActivity) getActivity()).getSupportActionBar().setDisplayHomeAsUpEnabled(false);
         MainActivity.appBarLayout.setVisibility(View.GONE);
 
+        // Assign value to progress bar (loading)
+        loading = view.findViewById(R.id.loading);
+
         // Assign values to each homepage menu item
         itemCalendar = view.findViewById(R.id.calendar_wrapper);
         itemMembersCars = view.findViewById(R.id.members_cars_wrapper);
@@ -87,7 +92,6 @@ public class HomeFragment extends Fragment {
 
         // Assign values to edit profile and reset password variables
         editProfile = view.findViewById(R.id.edit_profile_wrapper);
-        resetPassword = view.findViewById(R.id.reset_password_wrapper);
 
         // Assign value to admin wrapper
         adminSection = view.findViewById(R.id.admin_section);
@@ -108,6 +112,10 @@ public class HomeFragment extends Fragment {
         btnSignout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                loading.bringToFront();
+                loading.setVisibility(View.VISIBLE);
+
                 FirebaseAuth.getInstance().signOut();
                 Intent intent = new Intent(getContext(), LoginActivity.class);
                 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP);
@@ -219,6 +227,10 @@ public class HomeFragment extends Fragment {
     }
 
     private void setUserDetails(final CircleImageView circleImageView, final TextView... textViews) {
+
+        loading.bringToFront();
+        loading.setVisibility(View.VISIBLE);
+
         DatabaseReference reference = FirebaseDatabase.getInstance().getReference("Member").child(fUser.getUid());
         reference.addValueEventListener(new ValueEventListener() {
             @Override
@@ -236,6 +248,8 @@ public class HomeFragment extends Fragment {
 
                     textViews[0].setText(member.getUsername());
                     textViews[1].setText(member.getEmail());
+
+                    loading.setVisibility(View.GONE);
                 }
             }
 

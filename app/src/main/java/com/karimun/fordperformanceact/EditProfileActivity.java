@@ -180,7 +180,7 @@ public class EditProfileActivity extends AppCompatActivity {
     }
 
     private void uploadProfileImage() {
-        final ProgressDialog progressDialog = new ProgressDialog(this);
+        final ProgressDialog progressDialog = new ProgressDialog(this, R.style.MyProgressDialog);
         progressDialog.setTitle("Uploading image..");
         progressDialog.show();
 

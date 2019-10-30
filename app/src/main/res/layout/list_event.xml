@@ -25,7 +25,7 @@
             android:layout_centerVertical="true"
             android:text="ddd, dd MMM yyyy"
             android:textColor="@color/colorGeneralText"
-            android:textSize="25sp"
+            android:textSize="20sp"
             android:textStyle="bold" />
 
         <TextView

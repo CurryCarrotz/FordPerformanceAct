@@ -81,7 +81,7 @@
 
                 <EditText
                     android:id="@+id/date_start_field"
-                    android:layout_width="120dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/field_popup2"
                     android:padding="8dp"
@@ -98,7 +98,7 @@
 
                 <EditText
                     android:id="@+id/time_start_field"
-                    android:layout_width="120dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/field_popup2"
                     android:padding="8dp"
@@ -133,7 +133,7 @@
 
                 <EditText
                     android:id="@+id/date_end_field"
-                    android:layout_width="120dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/field_popup2"
                     android:hint="End date"
@@ -149,7 +149,7 @@
 
                 <EditText
                     android:id="@+id/time_end_field"
-                    android:layout_width="120dp"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@drawable/field_popup2"
                     android:padding="8dp"

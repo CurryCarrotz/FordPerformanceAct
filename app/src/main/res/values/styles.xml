@@ -3,9 +3,10 @@
     <!-- Base application theme. -->
     <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
         <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimary">@color/colorDarkerBackground</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
+        <item name="android:windowDisablePreview">true</item>
     </style>
 
     <!-- Theme for NavigationView -->
@@ -37,6 +38,11 @@
     <!-- Theme for TimePickerDialog -->
     <style name="MyTimePickerDialog" parent="Theme.AppCompat.Light.Dialog">
         <item name="colorAccent">@color/colorDarkerBackground</item>
+    </style>
+
+    <style name="MyProgressDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="android:textColor">@color/colorGeneralText</item>
+        <item name="android:background">#CC0E2D3F</item>
     </style>
 
     <style name="view_all_yo">

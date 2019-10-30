@@ -110,11 +110,12 @@ public class EventAdapter extends RecyclerView.Adapter<EventAdapter.ViewHolder> 
             if (!ourEvent.getDateEnd().equals(""))
                 endDay.setTime(ourDateFormat.parse(ourEvent.getDateEnd()));
 
-            long finalDayCurrent = TimeUnit.MILLISECONDS.toDays(currentDay.getTimeInMillis());
-            long finalDayStart = TimeUnit.MILLISECONDS.toDays(startDay.getTimeInMillis()) + 1;
+            long finalDayCurrent = TimeUnit.MILLISECONDS.toDays(currentDay.getTimeInMillis()) - 1;
+            long finalDayStart = TimeUnit.MILLISECONDS.toDays(startDay.getTimeInMillis());
             long daysLeftBeforeEventStarts = finalDayStart - finalDayCurrent;
+            Log.d("Day Start", String.valueOf(finalDayStart));
 
-            long finalDayEnd = TimeUnit.MILLISECONDS.toDays(endDay.getTimeInMillis()) + 1;
+            long finalDayEnd = TimeUnit.MILLISECONDS.toDays(endDay.getTimeInMillis());
             long daysLeftBeforeEventEnds = finalDayEnd - finalDayCurrent;
 
             // Hours and minutes
